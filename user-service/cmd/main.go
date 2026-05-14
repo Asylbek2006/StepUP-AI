@@ -13,7 +13,7 @@ import (
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc"
 
-	"github.com/stepup-ai/user-service/internal/delivery/grpc"
+	usergrpc "github.com/stepup-ai/user-service/internal/delivery/grpc"
 	"github.com/stepup-ai/user-service/internal/email"
 	"github.com/stepup-ai/user-service/internal/repository"
 	"github.com/stepup-ai/user-service/internal/usecase"
@@ -64,7 +64,7 @@ func main() {
 	userRepository := repository.NewPostgresUserRepository(db)
 	emailSender := email.NewSMTPEmailSender(smtpHost, smtpPort, smtpUser, smtpPass)
 	userUsecase := usecase.NewUserUsecase(userRepository, jwtSecretKey, emailSender)
-	userHandler := grpc.NewUserGRPCHandler(userUsecase)
+	userHandler := usergrpc.NewUserGRPCHandler(userUsecase)
 
 	grpcServer := grpc.NewServer()
 	pb.RegisterUserServiceServer(grpcServer, userHandler)

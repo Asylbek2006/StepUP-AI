@@ -76,7 +76,7 @@ func (h *UserGRPCHandler) GetUserProfile(ctx context.Context, req *pb.GetUserPro
 	}
 	return &pb.GetUserProfileResponse{
 		UserId:     profile.UserID,
-		GPA:        profile.GPA,
+		Gpa:        profile.GPA,
 		SatScore:   profile.SATScore,
 		IeltsScore: profile.IELTSScore,
 		Country:    profile.Country,
