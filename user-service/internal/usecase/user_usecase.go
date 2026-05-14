@@ -13,6 +13,7 @@ import (
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 
+	"github.com/stepup-ai/user-service/internal/cache"
 	"github.com/stepup-ai/user-service/internal/entity"
 	"github.com/stepup-ai/user-service/internal/messaging"
 	"github.com/stepup-ai/user-service/internal/repository"
@@ -42,6 +43,7 @@ type userUsecase struct {
 	jwtSecretKey   string
 	emailSender    EmailSender
 	natsPublisher  *messaging.NatsPublisher
+	redisCache     *cache.RedisCache
 }
 
 type EmailSender interface {
@@ -53,12 +55,14 @@ func NewUserUsecase(
 	jwtSecretKey string,
 	emailSender EmailSender,
 	natsPublisher *messaging.NatsPublisher,
+	redisCache *cache.RedisCache,
 ) UserUsecase {
 	return &userUsecase{
 		userRepository: userRepository,
 		jwtSecretKey:   jwtSecretKey,
 		emailSender:    emailSender,
 		natsPublisher:  natsPublisher,
+		redisCache:     redisCache,
 	}
 }
 
@@ -146,6 +150,9 @@ func (u *userUsecase) LoginUser(ctx context.Context, email, password string) (st
 
 func (u *userUsecase) LogoutUser(ctx context.Context, refreshToken string) error {
 	tokenHash := hashToken(refreshToken)
+	if u.redisCache != nil {
+		u.redisCache.SetBlacklistedToken(ctx, tokenHash, 7*24*time.Hour)
+	}
 	return u.userRepository.DeleteRefreshToken(ctx, tokenHash)
 }
 

@@ -119,7 +119,7 @@ func TestRegisterUser_Success(t *testing.T) {
 	mockRepository.On("CreateUserProfile", mock.Anything, mock.AnythingOfType("*entity.UserProfile")).Return(nil)
 	mockRepository.On("SaveRefreshToken", mock.Anything, mock.AnythingOfType("*entity.RefreshToken")).Return(nil)
 
-	userUsecase := usecase.NewUserUsecase(mockRepository, "test-secret-key", mockEmailSender, nil)
+	userUsecase := usecase.NewUserUsecase(mockRepository, "test-secret-key", mockEmailSender, nil, nil)
 
 	accessToken, refreshToken, err := userUsecase.RegisterUser(context.Background(), "test@gmail.com", "password123", "Test User")
 
@@ -140,7 +140,7 @@ func TestRegisterUser_UserAlreadyExists(t *testing.T) {
 
 	mockRepository.On("GetUserByEmail", mock.Anything, "test@gmail.com").Return(existingUser, nil)
 
-	userUsecase := usecase.NewUserUsecase(mockRepository, "test-secret-key", mockEmailSender, nil)
+	userUsecase := usecase.NewUserUsecase(mockRepository, "test-secret-key", mockEmailSender, nil, nil)
 
 	_, _, err := userUsecase.RegisterUser(context.Background(), "test@gmail.com", "password123", "Test User")
 
@@ -152,7 +152,7 @@ func TestLoginUser_Success(t *testing.T) {
 	mockRepository := new(MockUserRepository)
 	mockEmailSender := new(MockEmailSender)
 
-	userUsecase := usecase.NewUserUsecase(mockRepository, "test-secret-key", mockEmailSender, nil)
+	userUsecase := usecase.NewUserUsecase(mockRepository, "test-secret-key", mockEmailSender, nil, nil)
 
 	mockRepository.On("GetUserByEmail", mock.Anything, "test@gmail.com").Return(nil, sql.ErrNoRows)
 	mockRepository.On("CreateUser", mock.Anything, mock.AnythingOfType("*entity.User")).Return(nil)
@@ -181,7 +181,7 @@ func TestLoginUser_InvalidCredentials(t *testing.T) {
 		PasswordHash: "$2a$10$invalidhash",
 	}, nil)
 
-	userUsecase := usecase.NewUserUsecase(mockRepository, "test-secret-key", mockEmailSender, nil)
+	userUsecase := usecase.NewUserUsecase(mockRepository, "test-secret-key", mockEmailSender, nil, nil)
 
 	_, _, err := userUsecase.LoginUser(context.Background(), "test@gmail.com", "wrongpassword")
 
@@ -195,7 +195,7 @@ func TestLogoutUser_Success(t *testing.T) {
 
 	mockRepository.On("DeleteRefreshToken", mock.Anything, mock.AnythingOfType("string")).Return(nil)
 
-	userUsecase := usecase.NewUserUsecase(mockRepository, "test-secret-key", mockEmailSender, nil)
+	userUsecase := usecase.NewUserUsecase(mockRepository, "test-secret-key", mockEmailSender, nil, nil)
 
 	err := userUsecase.LogoutUser(context.Background(), "some-refresh-token")
 
@@ -209,7 +209,7 @@ func TestRefreshAccessToken_InvalidToken(t *testing.T) {
 
 	mockRepository.On("GetRefreshToken", mock.Anything, mock.AnythingOfType("string")).Return(nil, sql.ErrNoRows)
 
-	userUsecase := usecase.NewUserUsecase(mockRepository, "test-secret-key", mockEmailSender, nil)
+	userUsecase := usecase.NewUserUsecase(mockRepository, "test-secret-key", mockEmailSender, nil, nil)
 
 	_, _, err := userUsecase.RefreshAccessToken(context.Background(), "invalid-token")
 
@@ -230,7 +230,7 @@ func TestRefreshAccessToken_ExpiredToken(t *testing.T) {
 
 	mockRepository.On("GetRefreshToken", mock.Anything, mock.AnythingOfType("string")).Return(expiredToken, nil)
 
-	userUsecase := usecase.NewUserUsecase(mockRepository, "test-secret-key", mockEmailSender, nil)
+	userUsecase := usecase.NewUserUsecase(mockRepository, "test-secret-key", mockEmailSender, nil, nil)
 
 	_, _, err := userUsecase.RefreshAccessToken(context.Background(), "expired-token")
 
