@@ -14,6 +14,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/stepup-ai/user-service/internal/entity"
+	"github.com/stepup-ai/user-service/internal/messaging"
 	"github.com/stepup-ai/user-service/internal/repository"
 )
 
@@ -40,6 +41,7 @@ type userUsecase struct {
 	userRepository repository.UserRepository
 	jwtSecretKey   string
 	emailSender    EmailSender
+	natsPublisher  *messaging.NatsPublisher
 }
 
 type EmailSender interface {
@@ -50,11 +52,13 @@ func NewUserUsecase(
 	userRepository repository.UserRepository,
 	jwtSecretKey string,
 	emailSender EmailSender,
+	natsPublisher *messaging.NatsPublisher,
 ) UserUsecase {
 	return &userUsecase{
 		userRepository: userRepository,
 		jwtSecretKey:   jwtSecretKey,
 		emailSender:    emailSender,
+		natsPublisher:  natsPublisher,
 	}
 }
 
@@ -84,6 +88,12 @@ func (u *userUsecase) RegisterUser(ctx context.Context, email, password, fullNam
 	if err := u.userRepository.CreateUser(ctx, newUser); err != nil {
 		return "", "", err
 	}
+
+	u.natsPublisher.PublishUserRegisteredEvent(messaging.UserRegisteredEvent{
+		UserID:   newUser.ID,
+		Email:    newUser.Email,
+		FullName: newUser.FullName,
+	})
 
 	emptyProfile := &entity.UserProfile{
 		UserID:    newUser.ID,

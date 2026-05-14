@@ -15,6 +15,7 @@ import (
 
 	usergrpc "github.com/stepup-ai/user-service/internal/delivery/grpc"
 	"github.com/stepup-ai/user-service/internal/email"
+	"github.com/stepup-ai/user-service/internal/messaging"
 	"github.com/stepup-ai/user-service/internal/repository"
 	"github.com/stepup-ai/user-service/internal/usecase"
 	pb "github.com/stepup-ai/user-service/proto/user"
@@ -43,6 +44,17 @@ func main() {
 		log.Fatalf("failed to ping database: %v", err)
 	}
 
+	natsURL := os.Getenv("NATS_URL")
+	if natsURL == "" {
+		natsURL = "nats://localhost:4222"
+	}
+
+	natsPublisher, err := messaging.NewNatsPublisher(natsURL)
+	if err != nil {
+		log.Fatalf("failed to connect to nats: %v", err)
+	}
+	defer natsPublisher.Close()
+
 	driver, err := postgres.WithInstance(db, &postgres.Config{})
 	if err != nil {
 		log.Fatalf("failed to create migration driver: %v", err)
@@ -63,7 +75,7 @@ func main() {
 
 	userRepository := repository.NewPostgresUserRepository(db)
 	emailSender := email.NewSMTPEmailSender(smtpHost, smtpPort, smtpUser, smtpPass)
-	userUsecase := usecase.NewUserUsecase(userRepository, jwtSecretKey, emailSender)
+	userUsecase := usecase.NewUserUsecase(userRepository, jwtSecretKey, emailSender, natsPublisher)
 	userHandler := usergrpc.NewUserGRPCHandler(userUsecase)
 
 	grpcServer := grpc.NewServer()
