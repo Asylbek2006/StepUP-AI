@@ -89,11 +89,13 @@ func (u *userUsecase) RegisterUser(ctx context.Context, email, password, fullNam
 		return "", "", err
 	}
 
-	u.natsPublisher.PublishUserRegisteredEvent(messaging.UserRegisteredEvent{
-		UserID:   newUser.ID,
-		Email:    newUser.Email,
-		FullName: newUser.FullName,
-	})
+	if u.natsPublisher != nil {
+		u.natsPublisher.PublishUserRegisteredEvent(messaging.UserRegisteredEvent{
+			UserID:   newUser.ID,
+			Email:    newUser.Email,
+			FullName: newUser.FullName,
+		})
+	}
 
 	emptyProfile := &entity.UserProfile{
 		UserID:    newUser.ID,
