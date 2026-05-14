@@ -1,0 +1,73 @@
+syntax = "proto3";
+package user;
+option go_package = "github.com/stepup-ai/proto/user";
+
+service UserService {
+  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
+  rpc LoginUser(LoginUserRequest) returns (LoginUserResponse);
+  rpc LogoutUser(LogoutUserRequest) returns (LogoutUserResponse);
+  rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+  rpc GetUserProfile(GetUserProfileRequest) returns (GetUserProfileResponse);
+  rpc UpdateUserProfile(UpdateUserProfileRequest) returns (UpdateUserProfileResponse);
+  rpc SendPasswordResetEmail(SendPasswordResetEmailRequest) returns (SendPasswordResetEmailResponse);
+  rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse);
+}
+
+message RegisterUserRequest {
+  string email = 1;
+  string password = 2;
+  string full_name = 3;
+}
+message RegisterUserResponse {
+  string user_id = 1;
+  string access_token = 2;
+  string refresh_token = 3;
+}
+
+message LoginUserRequest {
+  string email = 1;
+  string password = 2;
+}
+message LoginUserResponse {
+  string user_id = 1;
+  string access_token = 2;
+  string refresh_token = 3;
+}
+
+message LogoutUserRequest { string user_id = 1; }
+message LogoutUserResponse { bool success = 1; }
+
+message RefreshTokenRequest { string refresh_token = 1; }
+message RefreshTokenResponse {
+  string access_token = 2;
+  string refresh_token = 3;
+}
+
+message GetUserProfileRequest { string user_id = 1; }
+message GetUserProfileResponse {
+  string user_id = 1;
+  string email = 2;
+  string full_name = 3;
+  float gpa = 4;
+  int32 sat_score = 5;
+  float ielts_score = 6;
+  string country = 7;
+}
+
+message UpdateUserProfileRequest {
+  string user_id = 1;
+  float gpa = 2;
+  int32 sat_score = 3;
+  float ielts_score = 4;
+  string country = 5;
+}
+message UpdateUserProfileResponse { bool success = 1; }
+
+message SendPasswordResetEmailRequest { string email = 1; }
+message SendPasswordResetEmailResponse { bool success = 1; }
+
+message ResetPasswordRequest {
+  string reset_token = 1;
+  string new_password = 2;
+}
+message ResetPasswordResponse { bool success = 1; }

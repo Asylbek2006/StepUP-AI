@@ -1,0 +1,66 @@
+syntax = "proto3";
+package university;
+option go_package = "github.com/stepup-ai/proto/university";
+
+service UniversityService {
+  rpc SearchUniversities(SearchUniversitiesRequest) returns (SearchUniversitiesResponse);
+  rpc GetUniversityDetails(GetUniversityDetailsRequest) returns (GetUniversityDetailsResponse);
+  rpc SaveUniversity(SaveUniversityRequest) returns (SaveUniversityResponse);
+  rpc GetSavedUniversities(GetSavedUniversitiesRequest) returns (GetSavedUniversitiesResponse);
+  rpc SearchGrants(SearchGrantsRequest) returns (SearchGrantsResponse);
+  rpc SaveGrant(SaveGrantRequest) returns (SaveGrantResponse);
+  rpc GetSavedGrants(GetSavedGrantsRequest) returns (GetSavedGrantsResponse);
+}
+
+message SearchUniversitiesRequest {
+  string country = 1;
+  string type = 2;
+  float min_acceptance_rate = 3;
+  float max_acceptance_rate = 4;
+}
+message SearchUniversitiesResponse {
+  repeated University universities = 1;
+}
+message University {
+  string id = 1;
+  string name = 2;
+  string country = 3;
+  float acceptance_rate = 4;
+  string type = 5;
+  string category = 6;
+}
+
+message GetUniversityDetailsRequest { string university_id = 1; }
+message GetUniversityDetailsResponse { University university = 1; }
+
+message SaveUniversityRequest {
+  string user_id = 1;
+  string university_id = 2;
+}
+message SaveUniversityResponse { bool success = 1; }
+
+message GetSavedUniversitiesRequest { string user_id = 1; }
+message GetSavedUniversitiesResponse { repeated University universities = 1; }
+
+message SearchGrantsRequest {
+  string user_id = 1;
+  string country = 2;
+  float gpa = 3;
+}
+message SearchGrantsResponse { repeated Grant grants = 1; }
+message Grant {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  float amount = 4;
+  string deadline = 5;
+}
+
+message SaveGrantRequest {
+  string user_id = 1;
+  string grant_id = 2;
+}
+message SaveGrantResponse { bool success = 1; }
+
+message GetSavedGrantsRequest { string user_id = 1; }
+message GetSavedGrantsResponse { repeated Grant grants = 1; }

@@ -1,0 +1,105 @@
+version: '3.9'
+
+services:
+  postgres-user:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: user_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_user_data:/var/lib/postgresql/data
+
+  postgres-university:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: university_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_university_data:/var/lib/postgresql/data
+
+  postgres-ai:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: ai_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_ai_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  nats:
+    image: nats:2.10-alpine
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      USER_SERVICE_ADDR: user-service:9001
+      UNIVERSITY_SERVICE_ADDR: university-service:9002
+      AI_SERVICE_ADDR: ai-service:9003
+      JWT_SECRET: your-secret-key
+    depends_on:
+      - user-service
+      - university-service
+      - ai-service
+
+  user-service:
+    build: ./user-service
+    ports:
+      - "9001:9001"
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres-user:5432/user_db
+      REDIS_URL: redis:6379
+      NATS_URL: nats://nats:4222
+      SMTP_HOST: smtp.gmail.com
+      SMTP_PORT: 587
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+    depends_on:
+      - postgres-user
+      - redis
+      - nats
+
+  university-service:
+    build: ./university-service
+    ports:
+      - "9002:9002"
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres-university:5432/university_db
+      NATS_URL: nats://nats:4222
+    depends_on:
+      - postgres-university
+      - nats
+
+  ai-service:
+    build: ./ai-service
+    ports:
+      - "9003:9003"
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres-ai:5432/ai_db
+      NATS_URL: nats://nats:4222
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+    depends_on:
+      - postgres-ai
+      - nats
+
+volumes:
+  postgres_user_data:
+  postgres_university_data:
+  postgres_ai_data:

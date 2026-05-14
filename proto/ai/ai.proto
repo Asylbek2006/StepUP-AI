@@ -1,0 +1,70 @@
+syntax = "proto3";
+package ai;
+option go_package = "github.com/stepup-ai/proto/ai";
+
+service AIService {
+  rpc AnalyzeAdmissionChances(AnalyzeAdmissionChancesRequest) returns (AnalyzeAdmissionChancesResponse);
+  rpc GenerateRoadmap(GenerateRoadmapRequest) returns (GenerateRoadmapResponse);
+  rpc ReviewEssay(ReviewEssayRequest) returns (ReviewEssayResponse);
+  rpc MatchGrants(MatchGrantsRequest) returns (MatchGrantsResponse);
+  rpc GetAnalysisHistory(GetAnalysisHistoryRequest) returns (GetAnalysisHistoryResponse);
+}
+
+message AnalyzeAdmissionChancesRequest {
+  string user_id = 1;
+  string university_id = 2;
+  float gpa = 3;
+  int32 sat_score = 4;
+  float ielts_score = 5;
+}
+message AnalyzeAdmissionChancesResponse {
+  float admission_chance_percentage = 1;
+  repeated string weak_areas = 2;
+  repeated string improvement_suggestions = 3;
+  string gap_analysis = 4;
+}
+
+message GenerateRoadmapRequest {
+  string user_id = 1;
+  string target_university_id = 2;
+  int32 months_until_application = 3;
+}
+message GenerateRoadmapResponse {
+  repeated RoadmapStep steps = 1;
+}
+message RoadmapStep {
+  string title = 1;
+  string description = 2;
+  int32 month_number = 3;
+  string category = 4;
+}
+
+message ReviewEssayRequest {
+  string user_id = 1;
+  string essay_text = 2;
+  string university_name = 3;
+  string program_name = 4;
+  int32 word_limit = 5;
+}
+message ReviewEssayResponse {
+  float grammar_score = 1;
+  float coherence_score = 2;
+  float uniqueness_score = 3;
+  float relevance_score = 4;
+  repeated string improvement_suggestions = 5;
+}
+
+message MatchGrantsRequest {
+  string user_id = 1;
+  float gpa = 2;
+  string country = 3;
+  repeated string achievements = 4;
+}
+message MatchGrantsResponse {
+  repeated string matched_grant_ids = 1;
+}
+
+message GetAnalysisHistoryRequest { string user_id = 1; }
+message GetAnalysisHistoryResponse {
+  repeated string analysis_ids = 1;
+}
