@@ -14,6 +14,7 @@ import (
 	"google.golang.org/grpc"
 
 	aigrpc "github.com/stepup-ai/ai-service/internal/delivery/grpc"
+	"github.com/stepup-ai/ai-service/internal/messaging"
 	"github.com/stepup-ai/ai-service/internal/repository"
 	"github.com/stepup-ai/ai-service/internal/usecase"
 	pb "github.com/stepup-ai/ai-service/proto/ai"
@@ -26,6 +27,26 @@ func main() {
 
 	if grpcPort == "" {
 		grpcPort = "9003"
+	}
+
+	natsURL := os.Getenv("NATS_URL")
+	if natsURL == "" {
+		natsURL = "nats://localhost:4222"
+	}
+
+	natsSubscriber, err := messaging.NewNatsSubscriber(natsURL)
+	if err != nil {
+		log.Printf("warning: nats connection failed: %v", err)
+	} else {
+		defer natsSubscriber.Close()
+
+		err = natsSubscriber.SubscribeToUserRegisteredEvents(func(event messaging.UserRegisteredEvent) error {
+			log.Printf("new user registered: %s (%s)", event.FullName, event.Email)
+			return nil
+		})
+		if err != nil {
+			log.Printf("warning: failed to subscribe to user registered events: %v", err)
+		}
 	}
 
 	db, err := sql.Open("postgres", databaseURL)
