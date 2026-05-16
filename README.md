@@ -1,5 +1,16 @@
 # StepUp AI
 
+![Go](https://img.shields.io/badge/Go-1.25-blue)
+![gRPC](https://img.shields.io/badge/gRPC-enabled-green)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-blue)
+![Redis](https://img.shields.io/badge/Redis-7-red)
+![NATS](https://img.shields.io/badge/NATS-2.10-orange)
+![License](https://img.shields.io/badge/license-MIT-green)
+
+University admission helper. Microservice-based backend written in Go.
+
+# StepUp AI
+
 University admission helper. Microservice-based backend written in Go.
 
 ## What it does
