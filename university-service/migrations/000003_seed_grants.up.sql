@@ -1,0 +1,16 @@
+INSERT INTO grants (name, description, amount, deadline, country, min_gpa) VALUES
+('Bolashak Scholarship', 'Kazakhstan government grant for studying abroad covering full tuition', 100000, '2026-12-15', 'Kazakhstan', 3.5),
+('Chevening Scholarship', 'UK government global scholarship program for one-year masters', 50000, '2026-11-01', 'UK', 3.0),
+('Fulbright Program', 'US government international educational exchange program', 60000, '2026-10-15', 'USA', 3.3),
+('DAAD Scholarship', 'German Academic Exchange Service grant for international students', 40000, '2026-09-30', 'Germany', 3.0),
+('Erasmus Mundus', 'EU scholarship for joint masters programs across Europe', 35000, '2026-01-15', 'EU', 3.0),
+('MEXT Scholarship', 'Japanese government scholarship for graduate research', 45000, '2026-05-30', 'Japan', 3.2),
+('Swiss Government Excellence', 'Swiss federal scholarship for research and postdoc', 55000, '2026-12-01', 'Switzerland', 3.5),
+('Vanier Canada Graduate', 'Canadian doctoral scholarship for exceptional students', 50000, '2026-11-02', 'Canada', 3.7),
+('Rhodes Scholarship', 'Postgraduate award at University of Oxford', 70000, '2026-10-05', 'UK', 3.7),
+('Gates Cambridge', 'Scholarship to pursue full-time postgraduate at Cambridge', 65000, '2026-12-03', 'UK', 3.5),
+('Knight-Hennessy Scholars', 'Graduate scholarship program at Stanford University', 100000, '2026-10-12', 'USA', 3.5),
+('Australia Awards', 'Long-term development scholarships from Australian government', 45000, '2026-04-30', 'Australia', 3.0),
+('Korean Government Scholarship', 'KGSP for international students at Korean universities', 25000, '2026-09-15', 'South Korea', 3.0),
+('Schwarzman Scholars', 'One-year masters at Tsinghua University in Beijing', 75000, '2026-09-19', 'China', 3.3),
+('Holland Scholarship', 'Scholarship for studying in Netherlands', 5000, '2026-05-01', 'Netherlands', 3.0);
