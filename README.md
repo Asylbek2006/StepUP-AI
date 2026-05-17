@@ -82,4 +82,4 @@ Integration tests in university-service need a running PostgreSQL.
 
 - Asylbek — api-gateway, user-service
 - Ansar — ai-service
-- Aray — university-service
+- Arai — university-service
