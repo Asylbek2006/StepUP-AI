@@ -91,6 +91,13 @@ func main() {
 		log.Fatalf("failed to listen on port %s: %v", grpcPort, err)
 	}
 
+	log.Printf("=== AI Service ===")
+	log.Printf("Version: 1.0.0")
+	log.Printf("gRPC Port: %s", grpcPort)
+	log.Printf("Database: connected")
+	log.Printf("NATS: connected")
+	log.Printf("==================")
+
 	log.Printf("ai service running on port %s", grpcPort)
 	if err := grpcServer.Serve(listener); err != nil {
 		log.Fatalf("failed to serve: %v", err)
