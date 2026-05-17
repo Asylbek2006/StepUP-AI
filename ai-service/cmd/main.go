@@ -19,6 +19,7 @@ import (
 	"github.com/stepup-ai/ai-service/internal/usecase"
 	pb "github.com/stepup-ai/ai-service/proto/ai"
 	gogrpc_health_v1 "google.golang.org/grpc/health/grpc_health_v1"
+	"google.golang.org/grpc/reflection"
 )
 
 func main() {
@@ -84,6 +85,7 @@ func main() {
 
 	grpcServer := grpc.NewServer()
 	pb.RegisterAIServiceServer(grpcServer, aiHandler)
+	reflection.Register(grpcServer)
 	gogrpc_health_v1.RegisterHealthServer(grpcServer, aigrpc.NewHealthCheckHandler())
 
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%s", grpcPort))
