@@ -19,6 +19,8 @@ type AIRepository interface {
 	GetRoadmapByUserID(ctx context.Context, userID string) (*entity.Roadmap, []*entity.RoadmapStep, error)
 	SaveEssayReview(ctx context.Context, review *entity.EssayReview) error
 	GetEssayReviewsByUserID(ctx context.Context, userID string) ([]*entity.EssayReview, error)
+	DeleteAdmissionAnalysis(ctx context.Context, analysisID string) error
+	GetEssayReviewByID(ctx context.Context, reviewID string) (*entity.EssayReview, error)
 }
 
 type PostgresAIRepository struct {
@@ -194,4 +196,29 @@ func (r *PostgresAIRepository) GetEssayReviewsByUserID(ctx context.Context, user
 		reviews = append(reviews, review)
 	}
 	return reviews, nil
+}
+
+func (r *PostgresAIRepository) DeleteAdmissionAnalysis(ctx context.Context, analysisID string) error {
+	query := `DELETE FROM admission_analyses WHERE id = $1`
+	_, err := r.db.ExecContext(ctx, query, analysisID)
+	return err
+}
+
+func (r *PostgresAIRepository) GetEssayReviewByID(ctx context.Context, reviewID string) (*entity.EssayReview, error) {
+	query := `
+	  SELECT id, user_id, essay_text, university_name, program_name, grammar_score, coherence_score, uniqueness_score, relevance_score, created_at
+	  FROM essay_reviews WHERE id = $1
+	`
+	review := &entity.EssayReview{}
+	err := r.db.QueryRowContext(ctx, query, reviewID).Scan(
+		&review.ID, &review.UserID, &review.EssayText,
+		&review.UniversityName, &review.ProgramName,
+		&review.GrammarScore, &review.CoherenceScore,
+		&review.UniquenessScore, &review.RelevanceScore,
+		&review.CreatedAt,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return review, nil
 }

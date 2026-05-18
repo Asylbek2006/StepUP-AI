@@ -7,11 +7,12 @@
 package ai
 
 import (
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
+
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -689,6 +690,702 @@ func (x *GetAnalysisHistoryResponse) GetAnalysisIds() []string {
 	return nil
 }
 
+type GetRoadmapByUserIDRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRoadmapByUserIDRequest) Reset() {
+	*x = GetRoadmapByUserIDRequest{}
+	mi := &file_proto_ai_ai_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRoadmapByUserIDRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRoadmapByUserIDRequest) ProtoMessage() {}
+
+func (x *GetRoadmapByUserIDRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_ai_ai_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRoadmapByUserIDRequest.ProtoReflect.Descriptor instead.
+func (*GetRoadmapByUserIDRequest) Descriptor() ([]byte, []int) {
+	return file_proto_ai_ai_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetRoadmapByUserIDRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+type GetRoadmapByUserIDResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	RoadmapId     string                 `protobuf:"bytes,1,opt,name=roadmap_id,json=roadmapId,proto3" json:"roadmap_id,omitempty"`
+	Steps         []*RoadmapStep         `protobuf:"bytes,2,rep,name=steps,proto3" json:"steps,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRoadmapByUserIDResponse) Reset() {
+	*x = GetRoadmapByUserIDResponse{}
+	mi := &file_proto_ai_ai_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRoadmapByUserIDResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRoadmapByUserIDResponse) ProtoMessage() {}
+
+func (x *GetRoadmapByUserIDResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_ai_ai_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRoadmapByUserIDResponse.ProtoReflect.Descriptor instead.
+func (*GetRoadmapByUserIDResponse) Descriptor() ([]byte, []int) {
+	return file_proto_ai_ai_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetRoadmapByUserIDResponse) GetRoadmapId() string {
+	if x != nil {
+		return x.RoadmapId
+	}
+	return ""
+}
+
+func (x *GetRoadmapByUserIDResponse) GetSteps() []*RoadmapStep {
+	if x != nil {
+		return x.Steps
+	}
+	return nil
+}
+
+type GetEssayReviewsByUserIDRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetEssayReviewsByUserIDRequest) Reset() {
+	*x = GetEssayReviewsByUserIDRequest{}
+	mi := &file_proto_ai_ai_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetEssayReviewsByUserIDRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetEssayReviewsByUserIDRequest) ProtoMessage() {}
+
+func (x *GetEssayReviewsByUserIDRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_ai_ai_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetEssayReviewsByUserIDRequest.ProtoReflect.Descriptor instead.
+func (*GetEssayReviewsByUserIDRequest) Descriptor() ([]byte, []int) {
+	return file_proto_ai_ai_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *GetEssayReviewsByUserIDRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+type GetEssayReviewsByUserIDResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ReviewIds     []string               `protobuf:"bytes,1,rep,name=review_ids,json=reviewIds,proto3" json:"review_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetEssayReviewsByUserIDResponse) Reset() {
+	*x = GetEssayReviewsByUserIDResponse{}
+	mi := &file_proto_ai_ai_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetEssayReviewsByUserIDResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetEssayReviewsByUserIDResponse) ProtoMessage() {}
+
+func (x *GetEssayReviewsByUserIDResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_ai_ai_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetEssayReviewsByUserIDResponse.ProtoReflect.Descriptor instead.
+func (*GetEssayReviewsByUserIDResponse) Descriptor() ([]byte, []int) {
+	return file_proto_ai_ai_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *GetEssayReviewsByUserIDResponse) GetReviewIds() []string {
+	if x != nil {
+		return x.ReviewIds
+	}
+	return nil
+}
+
+type GetEssayReviewByIDRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ReviewId      string                 `protobuf:"bytes,1,opt,name=review_id,json=reviewId,proto3" json:"review_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetEssayReviewByIDRequest) Reset() {
+	*x = GetEssayReviewByIDRequest{}
+	mi := &file_proto_ai_ai_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetEssayReviewByIDRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetEssayReviewByIDRequest) ProtoMessage() {}
+
+func (x *GetEssayReviewByIDRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_ai_ai_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetEssayReviewByIDRequest.ProtoReflect.Descriptor instead.
+func (*GetEssayReviewByIDRequest) Descriptor() ([]byte, []int) {
+	return file_proto_ai_ai_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *GetEssayReviewByIDRequest) GetReviewId() string {
+	if x != nil {
+		return x.ReviewId
+	}
+	return ""
+}
+
+type GetEssayReviewByIDResponse struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	ReviewId       string                 `protobuf:"bytes,1,opt,name=review_id,json=reviewId,proto3" json:"review_id,omitempty"`
+	EssayText      string                 `protobuf:"bytes,2,opt,name=essay_text,json=essayText,proto3" json:"essay_text,omitempty"`
+	GrammarScore   float32                `protobuf:"fixed32,3,opt,name=grammar_score,json=grammarScore,proto3" json:"grammar_score,omitempty"`
+	CoherenceScore float32                `protobuf:"fixed32,4,opt,name=coherence_score,json=coherenceScore,proto3" json:"coherence_score,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *GetEssayReviewByIDResponse) Reset() {
+	*x = GetEssayReviewByIDResponse{}
+	mi := &file_proto_ai_ai_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetEssayReviewByIDResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetEssayReviewByIDResponse) ProtoMessage() {}
+
+func (x *GetEssayReviewByIDResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_ai_ai_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetEssayReviewByIDResponse.ProtoReflect.Descriptor instead.
+func (*GetEssayReviewByIDResponse) Descriptor() ([]byte, []int) {
+	return file_proto_ai_ai_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *GetEssayReviewByIDResponse) GetReviewId() string {
+	if x != nil {
+		return x.ReviewId
+	}
+	return ""
+}
+
+func (x *GetEssayReviewByIDResponse) GetEssayText() string {
+	if x != nil {
+		return x.EssayText
+	}
+	return ""
+}
+
+func (x *GetEssayReviewByIDResponse) GetGrammarScore() float32 {
+	if x != nil {
+		return x.GrammarScore
+	}
+	return 0
+}
+
+func (x *GetEssayReviewByIDResponse) GetCoherenceScore() float32 {
+	if x != nil {
+		return x.CoherenceScore
+	}
+	return 0
+}
+
+type DeleteAnalysisRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AnalysisId    string                 `protobuf:"bytes,1,opt,name=analysis_id,json=analysisId,proto3" json:"analysis_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteAnalysisRequest) Reset() {
+	*x = DeleteAnalysisRequest{}
+	mi := &file_proto_ai_ai_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteAnalysisRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteAnalysisRequest) ProtoMessage() {}
+
+func (x *DeleteAnalysisRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_ai_ai_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteAnalysisRequest.ProtoReflect.Descriptor instead.
+func (*DeleteAnalysisRequest) Descriptor() ([]byte, []int) {
+	return file_proto_ai_ai_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *DeleteAnalysisRequest) GetAnalysisId() string {
+	if x != nil {
+		return x.AnalysisId
+	}
+	return ""
+}
+
+type DeleteAnalysisResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteAnalysisResponse) Reset() {
+	*x = DeleteAnalysisResponse{}
+	mi := &file_proto_ai_ai_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteAnalysisResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteAnalysisResponse) ProtoMessage() {}
+
+func (x *DeleteAnalysisResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_ai_ai_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteAnalysisResponse.ProtoReflect.Descriptor instead.
+func (*DeleteAnalysisResponse) Descriptor() ([]byte, []int) {
+	return file_proto_ai_ai_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *DeleteAnalysisResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+type CompareUniversitiesRequest struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	UniversityIdOne string                 `protobuf:"bytes,1,opt,name=university_id_one,json=universityIdOne,proto3" json:"university_id_one,omitempty"`
+	UniversityIdTwo string                 `protobuf:"bytes,2,opt,name=university_id_two,json=universityIdTwo,proto3" json:"university_id_two,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *CompareUniversitiesRequest) Reset() {
+	*x = CompareUniversitiesRequest{}
+	mi := &file_proto_ai_ai_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CompareUniversitiesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CompareUniversitiesRequest) ProtoMessage() {}
+
+func (x *CompareUniversitiesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_ai_ai_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CompareUniversitiesRequest.ProtoReflect.Descriptor instead.
+func (*CompareUniversitiesRequest) Descriptor() ([]byte, []int) {
+	return file_proto_ai_ai_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *CompareUniversitiesRequest) GetUniversityIdOne() string {
+	if x != nil {
+		return x.UniversityIdOne
+	}
+	return ""
+}
+
+func (x *CompareUniversitiesRequest) GetUniversityIdTwo() string {
+	if x != nil {
+		return x.UniversityIdTwo
+	}
+	return ""
+}
+
+type CompareUniversitiesResponse struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	ComparisonResult string                 `protobuf:"bytes,1,opt,name=comparison_result,json=comparisonResult,proto3" json:"comparison_result,omitempty"`
+	ChanceOne        float32                `protobuf:"fixed32,2,opt,name=chance_one,json=chanceOne,proto3" json:"chance_one,omitempty"`
+	ChanceTwo        float32                `protobuf:"fixed32,3,opt,name=chance_two,json=chanceTwo,proto3" json:"chance_two,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *CompareUniversitiesResponse) Reset() {
+	*x = CompareUniversitiesResponse{}
+	mi := &file_proto_ai_ai_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CompareUniversitiesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CompareUniversitiesResponse) ProtoMessage() {}
+
+func (x *CompareUniversitiesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_ai_ai_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CompareUniversitiesResponse.ProtoReflect.Descriptor instead.
+func (*CompareUniversitiesResponse) Descriptor() ([]byte, []int) {
+	return file_proto_ai_ai_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *CompareUniversitiesResponse) GetComparisonResult() string {
+	if x != nil {
+		return x.ComparisonResult
+	}
+	return ""
+}
+
+func (x *CompareUniversitiesResponse) GetChanceOne() float32 {
+	if x != nil {
+		return x.ChanceOne
+	}
+	return 0
+}
+
+func (x *CompareUniversitiesResponse) GetChanceTwo() float32 {
+	if x != nil {
+		return x.ChanceTwo
+	}
+	return 0
+}
+
+type GetRecommendedUniversitiesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Gpa           float32                `protobuf:"fixed32,2,opt,name=gpa,proto3" json:"gpa,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRecommendedUniversitiesRequest) Reset() {
+	*x = GetRecommendedUniversitiesRequest{}
+	mi := &file_proto_ai_ai_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRecommendedUniversitiesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRecommendedUniversitiesRequest) ProtoMessage() {}
+
+func (x *GetRecommendedUniversitiesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_ai_ai_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRecommendedUniversitiesRequest.ProtoReflect.Descriptor instead.
+func (*GetRecommendedUniversitiesRequest) Descriptor() ([]byte, []int) {
+	return file_proto_ai_ai_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *GetRecommendedUniversitiesRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *GetRecommendedUniversitiesRequest) GetGpa() float32 {
+	if x != nil {
+		return x.Gpa
+	}
+	return 0
+}
+
+type GetRecommendedUniversitiesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UniversityIds []string               `protobuf:"bytes,1,rep,name=university_ids,json=universityIds,proto3" json:"university_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRecommendedUniversitiesResponse) Reset() {
+	*x = GetRecommendedUniversitiesResponse{}
+	mi := &file_proto_ai_ai_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRecommendedUniversitiesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRecommendedUniversitiesResponse) ProtoMessage() {}
+
+func (x *GetRecommendedUniversitiesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_ai_ai_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRecommendedUniversitiesResponse.ProtoReflect.Descriptor instead.
+func (*GetRecommendedUniversitiesResponse) Descriptor() ([]byte, []int) {
+	return file_proto_ai_ai_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *GetRecommendedUniversitiesResponse) GetUniversityIds() []string {
+	if x != nil {
+		return x.UniversityIds
+	}
+	return nil
+}
+
+type GetAdmissionAnalysisByIDRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AnalysisId    string                 `protobuf:"bytes,1,opt,name=analysis_id,json=analysisId,proto3" json:"analysis_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAdmissionAnalysisByIDRequest) Reset() {
+	*x = GetAdmissionAnalysisByIDRequest{}
+	mi := &file_proto_ai_ai_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAdmissionAnalysisByIDRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAdmissionAnalysisByIDRequest) ProtoMessage() {}
+
+func (x *GetAdmissionAnalysisByIDRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_ai_ai_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAdmissionAnalysisByIDRequest.ProtoReflect.Descriptor instead.
+func (*GetAdmissionAnalysisByIDRequest) Descriptor() ([]byte, []int) {
+	return file_proto_ai_ai_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *GetAdmissionAnalysisByIDRequest) GetAnalysisId() string {
+	if x != nil {
+		return x.AnalysisId
+	}
+	return ""
+}
+
+type GetAdmissionAnalysisByIDResponse struct {
+	state                     protoimpl.MessageState `protogen:"open.v1"`
+	AnalysisId                string                 `protobuf:"bytes,1,opt,name=analysis_id,json=analysisId,proto3" json:"analysis_id,omitempty"`
+	AdmissionChancePercentage float32                `protobuf:"fixed32,2,opt,name=admission_chance_percentage,json=admissionChancePercentage,proto3" json:"admission_chance_percentage,omitempty"`
+	GapAnalysis               string                 `protobuf:"bytes,3,opt,name=gap_analysis,json=gapAnalysis,proto3" json:"gap_analysis,omitempty"`
+	unknownFields             protoimpl.UnknownFields
+	sizeCache                 protoimpl.SizeCache
+}
+
+func (x *GetAdmissionAnalysisByIDResponse) Reset() {
+	*x = GetAdmissionAnalysisByIDResponse{}
+	mi := &file_proto_ai_ai_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAdmissionAnalysisByIDResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAdmissionAnalysisByIDResponse) ProtoMessage() {}
+
+func (x *GetAdmissionAnalysisByIDResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_ai_ai_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAdmissionAnalysisByIDResponse.ProtoReflect.Descriptor instead.
+func (*GetAdmissionAnalysisByIDResponse) Descriptor() ([]byte, []int) {
+	return file_proto_ai_ai_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *GetAdmissionAnalysisByIDResponse) GetAnalysisId() string {
+	if x != nil {
+		return x.AnalysisId
+	}
+	return ""
+}
+
+func (x *GetAdmissionAnalysisByIDResponse) GetAdmissionChancePercentage() float32 {
+	if x != nil {
+		return x.AdmissionChancePercentage
+	}
+	return 0
+}
+
+func (x *GetAdmissionAnalysisByIDResponse) GetGapAnalysis() string {
+	if x != nil {
+		return x.GapAnalysis
+	}
+	return ""
+}
+
 var File_proto_ai_ai_proto protoreflect.FileDescriptor
 
 const file_proto_ai_ai_proto_rawDesc = "" +
@@ -742,13 +1439,66 @@ const file_proto_ai_ai_proto_rawDesc = "" +
 	"\x19GetAnalysisHistoryRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\"?\n" +
 	"\x1aGetAnalysisHistoryResponse\x12!\n" +
-	"\fanalysis_ids\x18\x01 \x03(\tR\vanalysisIds2\x90\x03\n" +
+	"\fanalysis_ids\x18\x01 \x03(\tR\vanalysisIds\"4\n" +
+	"\x19GetRoadmapByUserIDRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\"b\n" +
+	"\x1aGetRoadmapByUserIDResponse\x12\x1d\n" +
+	"\n" +
+	"roadmap_id\x18\x01 \x01(\tR\troadmapId\x12%\n" +
+	"\x05steps\x18\x02 \x03(\v2\x0f.ai.RoadmapStepR\x05steps\"9\n" +
+	"\x1eGetEssayReviewsByUserIDRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\"@\n" +
+	"\x1fGetEssayReviewsByUserIDResponse\x12\x1d\n" +
+	"\n" +
+	"review_ids\x18\x01 \x03(\tR\treviewIds\"8\n" +
+	"\x19GetEssayReviewByIDRequest\x12\x1b\n" +
+	"\treview_id\x18\x01 \x01(\tR\breviewId\"\xa6\x01\n" +
+	"\x1aGetEssayReviewByIDResponse\x12\x1b\n" +
+	"\treview_id\x18\x01 \x01(\tR\breviewId\x12\x1d\n" +
+	"\n" +
+	"essay_text\x18\x02 \x01(\tR\tessayText\x12#\n" +
+	"\rgrammar_score\x18\x03 \x01(\x02R\fgrammarScore\x12'\n" +
+	"\x0fcoherence_score\x18\x04 \x01(\x02R\x0ecoherenceScore\"8\n" +
+	"\x15DeleteAnalysisRequest\x12\x1f\n" +
+	"\vanalysis_id\x18\x01 \x01(\tR\n" +
+	"analysisId\"2\n" +
+	"\x16DeleteAnalysisResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"t\n" +
+	"\x1aCompareUniversitiesRequest\x12*\n" +
+	"\x11university_id_one\x18\x01 \x01(\tR\x0funiversityIdOne\x12*\n" +
+	"\x11university_id_two\x18\x02 \x01(\tR\x0funiversityIdTwo\"\x88\x01\n" +
+	"\x1bCompareUniversitiesResponse\x12+\n" +
+	"\x11comparison_result\x18\x01 \x01(\tR\x10comparisonResult\x12\x1d\n" +
+	"\n" +
+	"chance_one\x18\x02 \x01(\x02R\tchanceOne\x12\x1d\n" +
+	"\n" +
+	"chance_two\x18\x03 \x01(\x02R\tchanceTwo\"N\n" +
+	"!GetRecommendedUniversitiesRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x10\n" +
+	"\x03gpa\x18\x02 \x01(\x02R\x03gpa\"K\n" +
+	"\"GetRecommendedUniversitiesResponse\x12%\n" +
+	"\x0euniversity_ids\x18\x01 \x03(\tR\runiversityIds\"B\n" +
+	"\x1fGetAdmissionAnalysisByIDRequest\x12\x1f\n" +
+	"\vanalysis_id\x18\x01 \x01(\tR\n" +
+	"analysisId\"\xa6\x01\n" +
+	" GetAdmissionAnalysisByIDResponse\x12\x1f\n" +
+	"\vanalysis_id\x18\x01 \x01(\tR\n" +
+	"analysisId\x12>\n" +
+	"\x1badmission_chance_percentage\x18\x02 \x01(\x02R\x19admissionChancePercentage\x12!\n" +
+	"\fgap_analysis\x18\x03 \x01(\tR\vgapAnalysis2\x93\b\n" +
 	"\tAIService\x12b\n" +
 	"\x17AnalyzeAdmissionChances\x12\".ai.AnalyzeAdmissionChancesRequest\x1a#.ai.AnalyzeAdmissionChancesResponse\x12J\n" +
 	"\x0fGenerateRoadmap\x12\x1a.ai.GenerateRoadmapRequest\x1a\x1b.ai.GenerateRoadmapResponse\x12>\n" +
 	"\vReviewEssay\x12\x16.ai.ReviewEssayRequest\x1a\x17.ai.ReviewEssayResponse\x12>\n" +
 	"\vMatchGrants\x12\x16.ai.MatchGrantsRequest\x1a\x17.ai.MatchGrantsResponse\x12S\n" +
-	"\x12GetAnalysisHistory\x12\x1d.ai.GetAnalysisHistoryRequest\x1a\x1e.ai.GetAnalysisHistoryResponseB\x1fZ\x1dgithub.com/stepup-ai/proto/aib\x06proto3"
+	"\x12GetAnalysisHistory\x12\x1d.ai.GetAnalysisHistoryRequest\x1a\x1e.ai.GetAnalysisHistoryResponse\x12S\n" +
+	"\x12GetRoadmapByUserID\x12\x1d.ai.GetRoadmapByUserIDRequest\x1a\x1e.ai.GetRoadmapByUserIDResponse\x12b\n" +
+	"\x17GetEssayReviewsByUserID\x12\".ai.GetEssayReviewsByUserIDRequest\x1a#.ai.GetEssayReviewsByUserIDResponse\x12S\n" +
+	"\x12GetEssayReviewByID\x12\x1d.ai.GetEssayReviewByIDRequest\x1a\x1e.ai.GetEssayReviewByIDResponse\x12G\n" +
+	"\x0eDeleteAnalysis\x12\x19.ai.DeleteAnalysisRequest\x1a\x1a.ai.DeleteAnalysisResponse\x12V\n" +
+	"\x13CompareUniversities\x12\x1e.ai.CompareUniversitiesRequest\x1a\x1f.ai.CompareUniversitiesResponse\x12k\n" +
+	"\x1aGetRecommendedUniversities\x12%.ai.GetRecommendedUniversitiesRequest\x1a&.ai.GetRecommendedUniversitiesResponse\x12e\n" +
+	"\x18GetAdmissionAnalysisByID\x12#.ai.GetAdmissionAnalysisByIDRequest\x1a$.ai.GetAdmissionAnalysisByIDResponseB\x1fZ\x1dgithub.com/stepup-ai/proto/aib\x06proto3"
 
 var (
 	file_proto_ai_ai_proto_rawDescOnce sync.Once
@@ -762,37 +1512,66 @@ func file_proto_ai_ai_proto_rawDescGZIP() []byte {
 	return file_proto_ai_ai_proto_rawDescData
 }
 
-var file_proto_ai_ai_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_proto_ai_ai_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
 var file_proto_ai_ai_proto_goTypes = []any{
-	(*AnalyzeAdmissionChancesRequest)(nil),  // 0: ai.AnalyzeAdmissionChancesRequest
-	(*AnalyzeAdmissionChancesResponse)(nil), // 1: ai.AnalyzeAdmissionChancesResponse
-	(*GenerateRoadmapRequest)(nil),          // 2: ai.GenerateRoadmapRequest
-	(*GenerateRoadmapResponse)(nil),         // 3: ai.GenerateRoadmapResponse
-	(*RoadmapStep)(nil),                     // 4: ai.RoadmapStep
-	(*ReviewEssayRequest)(nil),              // 5: ai.ReviewEssayRequest
-	(*ReviewEssayResponse)(nil),             // 6: ai.ReviewEssayResponse
-	(*MatchGrantsRequest)(nil),              // 7: ai.MatchGrantsRequest
-	(*MatchGrantsResponse)(nil),             // 8: ai.MatchGrantsResponse
-	(*GetAnalysisHistoryRequest)(nil),       // 9: ai.GetAnalysisHistoryRequest
-	(*GetAnalysisHistoryResponse)(nil),      // 10: ai.GetAnalysisHistoryResponse
+	(*AnalyzeAdmissionChancesRequest)(nil),     // 0: ai.AnalyzeAdmissionChancesRequest
+	(*AnalyzeAdmissionChancesResponse)(nil),    // 1: ai.AnalyzeAdmissionChancesResponse
+	(*GenerateRoadmapRequest)(nil),             // 2: ai.GenerateRoadmapRequest
+	(*GenerateRoadmapResponse)(nil),            // 3: ai.GenerateRoadmapResponse
+	(*RoadmapStep)(nil),                        // 4: ai.RoadmapStep
+	(*ReviewEssayRequest)(nil),                 // 5: ai.ReviewEssayRequest
+	(*ReviewEssayResponse)(nil),                // 6: ai.ReviewEssayResponse
+	(*MatchGrantsRequest)(nil),                 // 7: ai.MatchGrantsRequest
+	(*MatchGrantsResponse)(nil),                // 8: ai.MatchGrantsResponse
+	(*GetAnalysisHistoryRequest)(nil),          // 9: ai.GetAnalysisHistoryRequest
+	(*GetAnalysisHistoryResponse)(nil),         // 10: ai.GetAnalysisHistoryResponse
+	(*GetRoadmapByUserIDRequest)(nil),          // 11: ai.GetRoadmapByUserIDRequest
+	(*GetRoadmapByUserIDResponse)(nil),         // 12: ai.GetRoadmapByUserIDResponse
+	(*GetEssayReviewsByUserIDRequest)(nil),     // 13: ai.GetEssayReviewsByUserIDRequest
+	(*GetEssayReviewsByUserIDResponse)(nil),    // 14: ai.GetEssayReviewsByUserIDResponse
+	(*GetEssayReviewByIDRequest)(nil),          // 15: ai.GetEssayReviewByIDRequest
+	(*GetEssayReviewByIDResponse)(nil),         // 16: ai.GetEssayReviewByIDResponse
+	(*DeleteAnalysisRequest)(nil),              // 17: ai.DeleteAnalysisRequest
+	(*DeleteAnalysisResponse)(nil),             // 18: ai.DeleteAnalysisResponse
+	(*CompareUniversitiesRequest)(nil),         // 19: ai.CompareUniversitiesRequest
+	(*CompareUniversitiesResponse)(nil),        // 20: ai.CompareUniversitiesResponse
+	(*GetRecommendedUniversitiesRequest)(nil),  // 21: ai.GetRecommendedUniversitiesRequest
+	(*GetRecommendedUniversitiesResponse)(nil), // 22: ai.GetRecommendedUniversitiesResponse
+	(*GetAdmissionAnalysisByIDRequest)(nil),    // 23: ai.GetAdmissionAnalysisByIDRequest
+	(*GetAdmissionAnalysisByIDResponse)(nil),   // 24: ai.GetAdmissionAnalysisByIDResponse
 }
 var file_proto_ai_ai_proto_depIdxs = []int32{
 	4,  // 0: ai.GenerateRoadmapResponse.steps:type_name -> ai.RoadmapStep
-	0,  // 1: ai.AIService.AnalyzeAdmissionChances:input_type -> ai.AnalyzeAdmissionChancesRequest
-	2,  // 2: ai.AIService.GenerateRoadmap:input_type -> ai.GenerateRoadmapRequest
-	5,  // 3: ai.AIService.ReviewEssay:input_type -> ai.ReviewEssayRequest
-	7,  // 4: ai.AIService.MatchGrants:input_type -> ai.MatchGrantsRequest
-	9,  // 5: ai.AIService.GetAnalysisHistory:input_type -> ai.GetAnalysisHistoryRequest
-	1,  // 6: ai.AIService.AnalyzeAdmissionChances:output_type -> ai.AnalyzeAdmissionChancesResponse
-	3,  // 7: ai.AIService.GenerateRoadmap:output_type -> ai.GenerateRoadmapResponse
-	6,  // 8: ai.AIService.ReviewEssay:output_type -> ai.ReviewEssayResponse
-	8,  // 9: ai.AIService.MatchGrants:output_type -> ai.MatchGrantsResponse
-	10, // 10: ai.AIService.GetAnalysisHistory:output_type -> ai.GetAnalysisHistoryResponse
-	6,  // [6:11] is the sub-list for method output_type
-	1,  // [1:6] is the sub-list for method input_type
-	1,  // [1:1] is the sub-list for extension type_name
-	1,  // [1:1] is the sub-list for extension extendee
-	0,  // [0:1] is the sub-list for field type_name
+	4,  // 1: ai.GetRoadmapByUserIDResponse.steps:type_name -> ai.RoadmapStep
+	0,  // 2: ai.AIService.AnalyzeAdmissionChances:input_type -> ai.AnalyzeAdmissionChancesRequest
+	2,  // 3: ai.AIService.GenerateRoadmap:input_type -> ai.GenerateRoadmapRequest
+	5,  // 4: ai.AIService.ReviewEssay:input_type -> ai.ReviewEssayRequest
+	7,  // 5: ai.AIService.MatchGrants:input_type -> ai.MatchGrantsRequest
+	9,  // 6: ai.AIService.GetAnalysisHistory:input_type -> ai.GetAnalysisHistoryRequest
+	11, // 7: ai.AIService.GetRoadmapByUserID:input_type -> ai.GetRoadmapByUserIDRequest
+	13, // 8: ai.AIService.GetEssayReviewsByUserID:input_type -> ai.GetEssayReviewsByUserIDRequest
+	15, // 9: ai.AIService.GetEssayReviewByID:input_type -> ai.GetEssayReviewByIDRequest
+	17, // 10: ai.AIService.DeleteAnalysis:input_type -> ai.DeleteAnalysisRequest
+	19, // 11: ai.AIService.CompareUniversities:input_type -> ai.CompareUniversitiesRequest
+	21, // 12: ai.AIService.GetRecommendedUniversities:input_type -> ai.GetRecommendedUniversitiesRequest
+	23, // 13: ai.AIService.GetAdmissionAnalysisByID:input_type -> ai.GetAdmissionAnalysisByIDRequest
+	1,  // 14: ai.AIService.AnalyzeAdmissionChances:output_type -> ai.AnalyzeAdmissionChancesResponse
+	3,  // 15: ai.AIService.GenerateRoadmap:output_type -> ai.GenerateRoadmapResponse
+	6,  // 16: ai.AIService.ReviewEssay:output_type -> ai.ReviewEssayResponse
+	8,  // 17: ai.AIService.MatchGrants:output_type -> ai.MatchGrantsResponse
+	10, // 18: ai.AIService.GetAnalysisHistory:output_type -> ai.GetAnalysisHistoryResponse
+	12, // 19: ai.AIService.GetRoadmapByUserID:output_type -> ai.GetRoadmapByUserIDResponse
+	14, // 20: ai.AIService.GetEssayReviewsByUserID:output_type -> ai.GetEssayReviewsByUserIDResponse
+	16, // 21: ai.AIService.GetEssayReviewByID:output_type -> ai.GetEssayReviewByIDResponse
+	18, // 22: ai.AIService.DeleteAnalysis:output_type -> ai.DeleteAnalysisResponse
+	20, // 23: ai.AIService.CompareUniversities:output_type -> ai.CompareUniversitiesResponse
+	22, // 24: ai.AIService.GetRecommendedUniversities:output_type -> ai.GetRecommendedUniversitiesResponse
+	24, // 25: ai.AIService.GetAdmissionAnalysisByID:output_type -> ai.GetAdmissionAnalysisByIDResponse
+	14, // [14:26] is the sub-list for method output_type
+	2,  // [2:14] is the sub-list for method input_type
+	2,  // [2:2] is the sub-list for extension type_name
+	2,  // [2:2] is the sub-list for extension extendee
+	0,  // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_proto_ai_ai_proto_init() }
@@ -806,7 +1585,7 @@ func file_proto_ai_ai_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_ai_ai_proto_rawDesc), len(file_proto_ai_ai_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   25,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

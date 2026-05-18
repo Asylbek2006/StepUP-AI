@@ -8,6 +8,7 @@ package ai
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -19,11 +20,18 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AIService_AnalyzeAdmissionChances_FullMethodName = "/ai.AIService/AnalyzeAdmissionChances"
-	AIService_GenerateRoadmap_FullMethodName         = "/ai.AIService/GenerateRoadmap"
-	AIService_ReviewEssay_FullMethodName             = "/ai.AIService/ReviewEssay"
-	AIService_MatchGrants_FullMethodName             = "/ai.AIService/MatchGrants"
-	AIService_GetAnalysisHistory_FullMethodName      = "/ai.AIService/GetAnalysisHistory"
+	AIService_AnalyzeAdmissionChances_FullMethodName    = "/ai.AIService/AnalyzeAdmissionChances"
+	AIService_GenerateRoadmap_FullMethodName            = "/ai.AIService/GenerateRoadmap"
+	AIService_ReviewEssay_FullMethodName                = "/ai.AIService/ReviewEssay"
+	AIService_MatchGrants_FullMethodName                = "/ai.AIService/MatchGrants"
+	AIService_GetAnalysisHistory_FullMethodName         = "/ai.AIService/GetAnalysisHistory"
+	AIService_GetRoadmapByUserID_FullMethodName         = "/ai.AIService/GetRoadmapByUserID"
+	AIService_GetEssayReviewsByUserID_FullMethodName    = "/ai.AIService/GetEssayReviewsByUserID"
+	AIService_GetEssayReviewByID_FullMethodName         = "/ai.AIService/GetEssayReviewByID"
+	AIService_DeleteAnalysis_FullMethodName             = "/ai.AIService/DeleteAnalysis"
+	AIService_CompareUniversities_FullMethodName        = "/ai.AIService/CompareUniversities"
+	AIService_GetRecommendedUniversities_FullMethodName = "/ai.AIService/GetRecommendedUniversities"
+	AIService_GetAdmissionAnalysisByID_FullMethodName   = "/ai.AIService/GetAdmissionAnalysisByID"
 )
 
 // AIServiceClient is the client API for AIService service.
@@ -35,6 +43,13 @@ type AIServiceClient interface {
 	ReviewEssay(ctx context.Context, in *ReviewEssayRequest, opts ...grpc.CallOption) (*ReviewEssayResponse, error)
 	MatchGrants(ctx context.Context, in *MatchGrantsRequest, opts ...grpc.CallOption) (*MatchGrantsResponse, error)
 	GetAnalysisHistory(ctx context.Context, in *GetAnalysisHistoryRequest, opts ...grpc.CallOption) (*GetAnalysisHistoryResponse, error)
+	GetRoadmapByUserID(ctx context.Context, in *GetRoadmapByUserIDRequest, opts ...grpc.CallOption) (*GetRoadmapByUserIDResponse, error)
+	GetEssayReviewsByUserID(ctx context.Context, in *GetEssayReviewsByUserIDRequest, opts ...grpc.CallOption) (*GetEssayReviewsByUserIDResponse, error)
+	GetEssayReviewByID(ctx context.Context, in *GetEssayReviewByIDRequest, opts ...grpc.CallOption) (*GetEssayReviewByIDResponse, error)
+	DeleteAnalysis(ctx context.Context, in *DeleteAnalysisRequest, opts ...grpc.CallOption) (*DeleteAnalysisResponse, error)
+	CompareUniversities(ctx context.Context, in *CompareUniversitiesRequest, opts ...grpc.CallOption) (*CompareUniversitiesResponse, error)
+	GetRecommendedUniversities(ctx context.Context, in *GetRecommendedUniversitiesRequest, opts ...grpc.CallOption) (*GetRecommendedUniversitiesResponse, error)
+	GetAdmissionAnalysisByID(ctx context.Context, in *GetAdmissionAnalysisByIDRequest, opts ...grpc.CallOption) (*GetAdmissionAnalysisByIDResponse, error)
 }
 
 type aIServiceClient struct {
@@ -95,6 +110,76 @@ func (c *aIServiceClient) GetAnalysisHistory(ctx context.Context, in *GetAnalysi
 	return out, nil
 }
 
+func (c *aIServiceClient) GetRoadmapByUserID(ctx context.Context, in *GetRoadmapByUserIDRequest, opts ...grpc.CallOption) (*GetRoadmapByUserIDResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetRoadmapByUserIDResponse)
+	err := c.cc.Invoke(ctx, AIService_GetRoadmapByUserID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *aIServiceClient) GetEssayReviewsByUserID(ctx context.Context, in *GetEssayReviewsByUserIDRequest, opts ...grpc.CallOption) (*GetEssayReviewsByUserIDResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetEssayReviewsByUserIDResponse)
+	err := c.cc.Invoke(ctx, AIService_GetEssayReviewsByUserID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *aIServiceClient) GetEssayReviewByID(ctx context.Context, in *GetEssayReviewByIDRequest, opts ...grpc.CallOption) (*GetEssayReviewByIDResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetEssayReviewByIDResponse)
+	err := c.cc.Invoke(ctx, AIService_GetEssayReviewByID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *aIServiceClient) DeleteAnalysis(ctx context.Context, in *DeleteAnalysisRequest, opts ...grpc.CallOption) (*DeleteAnalysisResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteAnalysisResponse)
+	err := c.cc.Invoke(ctx, AIService_DeleteAnalysis_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *aIServiceClient) CompareUniversities(ctx context.Context, in *CompareUniversitiesRequest, opts ...grpc.CallOption) (*CompareUniversitiesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CompareUniversitiesResponse)
+	err := c.cc.Invoke(ctx, AIService_CompareUniversities_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *aIServiceClient) GetRecommendedUniversities(ctx context.Context, in *GetRecommendedUniversitiesRequest, opts ...grpc.CallOption) (*GetRecommendedUniversitiesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetRecommendedUniversitiesResponse)
+	err := c.cc.Invoke(ctx, AIService_GetRecommendedUniversities_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *aIServiceClient) GetAdmissionAnalysisByID(ctx context.Context, in *GetAdmissionAnalysisByIDRequest, opts ...grpc.CallOption) (*GetAdmissionAnalysisByIDResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAdmissionAnalysisByIDResponse)
+	err := c.cc.Invoke(ctx, AIService_GetAdmissionAnalysisByID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AIServiceServer is the server API for AIService service.
 // All implementations must embed UnimplementedAIServiceServer
 // for forward compatibility.
@@ -104,6 +189,13 @@ type AIServiceServer interface {
 	ReviewEssay(context.Context, *ReviewEssayRequest) (*ReviewEssayResponse, error)
 	MatchGrants(context.Context, *MatchGrantsRequest) (*MatchGrantsResponse, error)
 	GetAnalysisHistory(context.Context, *GetAnalysisHistoryRequest) (*GetAnalysisHistoryResponse, error)
+	GetRoadmapByUserID(context.Context, *GetRoadmapByUserIDRequest) (*GetRoadmapByUserIDResponse, error)
+	GetEssayReviewsByUserID(context.Context, *GetEssayReviewsByUserIDRequest) (*GetEssayReviewsByUserIDResponse, error)
+	GetEssayReviewByID(context.Context, *GetEssayReviewByIDRequest) (*GetEssayReviewByIDResponse, error)
+	DeleteAnalysis(context.Context, *DeleteAnalysisRequest) (*DeleteAnalysisResponse, error)
+	CompareUniversities(context.Context, *CompareUniversitiesRequest) (*CompareUniversitiesResponse, error)
+	GetRecommendedUniversities(context.Context, *GetRecommendedUniversitiesRequest) (*GetRecommendedUniversitiesResponse, error)
+	GetAdmissionAnalysisByID(context.Context, *GetAdmissionAnalysisByIDRequest) (*GetAdmissionAnalysisByIDResponse, error)
 	mustEmbedUnimplementedAIServiceServer()
 }
 
@@ -128,6 +220,27 @@ func (UnimplementedAIServiceServer) MatchGrants(context.Context, *MatchGrantsReq
 }
 func (UnimplementedAIServiceServer) GetAnalysisHistory(context.Context, *GetAnalysisHistoryRequest) (*GetAnalysisHistoryResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAnalysisHistory not implemented")
+}
+func (UnimplementedAIServiceServer) GetRoadmapByUserID(context.Context, *GetRoadmapByUserIDRequest) (*GetRoadmapByUserIDResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetRoadmapByUserID not implemented")
+}
+func (UnimplementedAIServiceServer) GetEssayReviewsByUserID(context.Context, *GetEssayReviewsByUserIDRequest) (*GetEssayReviewsByUserIDResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetEssayReviewsByUserID not implemented")
+}
+func (UnimplementedAIServiceServer) GetEssayReviewByID(context.Context, *GetEssayReviewByIDRequest) (*GetEssayReviewByIDResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetEssayReviewByID not implemented")
+}
+func (UnimplementedAIServiceServer) DeleteAnalysis(context.Context, *DeleteAnalysisRequest) (*DeleteAnalysisResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteAnalysis not implemented")
+}
+func (UnimplementedAIServiceServer) CompareUniversities(context.Context, *CompareUniversitiesRequest) (*CompareUniversitiesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method CompareUniversities not implemented")
+}
+func (UnimplementedAIServiceServer) GetRecommendedUniversities(context.Context, *GetRecommendedUniversitiesRequest) (*GetRecommendedUniversitiesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetRecommendedUniversities not implemented")
+}
+func (UnimplementedAIServiceServer) GetAdmissionAnalysisByID(context.Context, *GetAdmissionAnalysisByIDRequest) (*GetAdmissionAnalysisByIDResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetAdmissionAnalysisByID not implemented")
 }
 func (UnimplementedAIServiceServer) mustEmbedUnimplementedAIServiceServer() {}
 func (UnimplementedAIServiceServer) testEmbeddedByValue()                   {}
@@ -240,6 +353,132 @@ func _AIService_GetAnalysisHistory_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AIService_GetRoadmapByUserID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRoadmapByUserIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AIServiceServer).GetRoadmapByUserID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AIService_GetRoadmapByUserID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AIServiceServer).GetRoadmapByUserID(ctx, req.(*GetRoadmapByUserIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AIService_GetEssayReviewsByUserID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEssayReviewsByUserIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AIServiceServer).GetEssayReviewsByUserID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AIService_GetEssayReviewsByUserID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AIServiceServer).GetEssayReviewsByUserID(ctx, req.(*GetEssayReviewsByUserIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AIService_GetEssayReviewByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEssayReviewByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AIServiceServer).GetEssayReviewByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AIService_GetEssayReviewByID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AIServiceServer).GetEssayReviewByID(ctx, req.(*GetEssayReviewByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AIService_DeleteAnalysis_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteAnalysisRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AIServiceServer).DeleteAnalysis(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AIService_DeleteAnalysis_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AIServiceServer).DeleteAnalysis(ctx, req.(*DeleteAnalysisRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AIService_CompareUniversities_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CompareUniversitiesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AIServiceServer).CompareUniversities(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AIService_CompareUniversities_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AIServiceServer).CompareUniversities(ctx, req.(*CompareUniversitiesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AIService_GetRecommendedUniversities_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRecommendedUniversitiesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AIServiceServer).GetRecommendedUniversities(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AIService_GetRecommendedUniversities_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AIServiceServer).GetRecommendedUniversities(ctx, req.(*GetRecommendedUniversitiesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AIService_GetAdmissionAnalysisByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAdmissionAnalysisByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AIServiceServer).GetAdmissionAnalysisByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AIService_GetAdmissionAnalysisByID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AIServiceServer).GetAdmissionAnalysisByID(ctx, req.(*GetAdmissionAnalysisByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AIService_ServiceDesc is the grpc.ServiceDesc for AIService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -266,6 +505,34 @@ var AIService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAnalysisHistory",
 			Handler:    _AIService_GetAnalysisHistory_Handler,
+		},
+		{
+			MethodName: "GetRoadmapByUserID",
+			Handler:    _AIService_GetRoadmapByUserID_Handler,
+		},
+		{
+			MethodName: "GetEssayReviewsByUserID",
+			Handler:    _AIService_GetEssayReviewsByUserID_Handler,
+		},
+		{
+			MethodName: "GetEssayReviewByID",
+			Handler:    _AIService_GetEssayReviewByID_Handler,
+		},
+		{
+			MethodName: "DeleteAnalysis",
+			Handler:    _AIService_DeleteAnalysis_Handler,
+		},
+		{
+			MethodName: "CompareUniversities",
+			Handler:    _AIService_CompareUniversities_Handler,
+		},
+		{
+			MethodName: "GetRecommendedUniversities",
+			Handler:    _AIService_GetRecommendedUniversities_Handler,
+		},
+		{
+			MethodName: "GetAdmissionAnalysisByID",
+			Handler:    _AIService_GetAdmissionAnalysisByID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

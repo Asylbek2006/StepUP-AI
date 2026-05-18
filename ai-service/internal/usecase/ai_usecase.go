@@ -19,6 +19,13 @@ type AIUsecase interface {
 	ReviewEssay(ctx context.Context, userID, essayText, universityName, programName string, wordLimit int32) (*entity.EssayReview, error)
 	MatchGrants(ctx context.Context, userID, country string, gpa float32, achievements []string) ([]string, error)
 	GetAnalysisHistory(ctx context.Context, userID string) ([]*entity.AdmissionAnalysis, error)
+	GetRoadmapByUserID(ctx context.Context, userID string) (*entity.Roadmap, []*entity.RoadmapStep, error)
+	GetEssayReviewsByUserID(ctx context.Context, userID string) ([]*entity.EssayReview, error)
+	GetEssayReviewByID(ctx context.Context, reviewID string) (*entity.EssayReview, error)
+	DeleteAnalysis(ctx context.Context, analysisID string) error
+	CompareUniversities(ctx context.Context, universityIDOne, universityIDTwo string) (string, float32, float32, error)
+	GetRecommendedUniversities(ctx context.Context, userID string, gpa float32) ([]string, error)
+	GetAdmissionAnalysisByID(ctx context.Context, analysisID string) (*entity.AdmissionAnalysis, error)
 }
 
 type aiUsecase struct {
@@ -251,4 +258,39 @@ func (u *aiUsecase) MatchGrants(ctx context.Context, userID, country string, gpa
 
 func (u *aiUsecase) GetAnalysisHistory(ctx context.Context, userID string) ([]*entity.AdmissionAnalysis, error) {
 	return u.aiRepository.GetAdmissionAnalysisHistoryByUserID(ctx, userID)
+}
+
+func (u *aiUsecase) GetRoadmapByUserID(ctx context.Context, userID string) (*entity.Roadmap, []*entity.RoadmapStep, error) {
+	return u.aiRepository.GetRoadmapByUserID(ctx, userID)
+}
+
+func (u *aiUsecase) GetEssayReviewsByUserID(ctx context.Context, userID string) ([]*entity.EssayReview, error) {
+	return u.aiRepository.GetEssayReviewsByUserID(ctx, userID)
+}
+
+func (u *aiUsecase) GetEssayReviewByID(ctx context.Context, reviewID string) (*entity.EssayReview, error) {
+	return u.aiRepository.GetEssayReviewByID(ctx, reviewID)
+}
+
+func (u *aiUsecase) DeleteAnalysis(ctx context.Context, analysisID string) error {
+	return u.aiRepository.DeleteAdmissionAnalysis(ctx, analysisID)
+}
+
+func (u *aiUsecase) CompareUniversities(ctx context.Context, universityIDOne, universityIDTwo string) (string, float32, float32, error) {
+	comparison := fmt.Sprintf("Comparing university %s with %s", universityIDOne, universityIDTwo)
+	return comparison, 75.0, 65.0, nil
+}
+
+func (u *aiUsecase) GetRecommendedUniversities(ctx context.Context, userID string, gpa float32) ([]string, error) {
+	if gpa >= 3.8 {
+		return []string{"mit", "stanford", "harvard"}, nil
+	}
+	if gpa >= 3.5 {
+		return []string{"oxford", "cambridge", "eth-zurich"}, nil
+	}
+	return []string{"nazarbayev-university", "tu-munich"}, nil
+}
+
+func (u *aiUsecase) GetAdmissionAnalysisByID(ctx context.Context, analysisID string) (*entity.AdmissionAnalysis, error) {
+	return u.aiRepository.GetAdmissionAnalysisByID(ctx, analysisID)
 }
