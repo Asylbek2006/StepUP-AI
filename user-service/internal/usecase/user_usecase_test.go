@@ -22,6 +22,11 @@ func (m *MockUserRepository) CreateUser(ctx context.Context, user *entity.User) 
 	return args.Error(0)
 }
 
+func (m *MockUserRepository) DeleteUser(ctx context.Context, userID string) error {
+	args := m.Called(ctx, userID)
+	return args.Error(0)
+}
+
 func (m *MockUserRepository) GetUserByEmail(ctx context.Context, email string) (*entity.User, error) {
 	args := m.Called(ctx, email)
 	if args.Get(0) == nil {

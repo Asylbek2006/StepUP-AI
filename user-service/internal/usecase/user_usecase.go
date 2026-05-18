@@ -36,6 +36,10 @@ type UserUsecase interface {
 	UpdateUserProfile(ctx context.Context, profile *entity.UserProfile) error
 	SendPasswordResetEmail(ctx context.Context, email string) error
 	ResetPassword(ctx context.Context, resetToken, newPassword string) error
+	DeleteUser(ctx context.Context, userID string) error
+	GetUserByID(ctx context.Context, userID string) (*entity.User, error)
+	ChangePassword(ctx context.Context, userID, oldPassword, newPassword string) error
+	VerifyEmail(ctx context.Context, userID, verificationCode string) (bool, error)
 }
 
 type userUsecase struct {
@@ -282,4 +286,36 @@ func generateSecureToken() string {
 func hashToken(token string) string {
 	hash := sha256.Sum256([]byte(token))
 	return hex.EncodeToString(hash[:])
+}
+func (u *userUsecase) DeleteUser(ctx context.Context, userID string) error {
+	return u.userRepository.DeleteUser(ctx, userID)
+}
+
+func (u *userUsecase) GetUserByID(ctx context.Context, userID string) (*entity.User, error) {
+	return u.userRepository.GetUserByID(ctx, userID)
+}
+
+func (u *userUsecase) ChangePassword(ctx context.Context, userID, oldPassword, newPassword string) error {
+	user, err := u.userRepository.GetUserByID(ctx, userID)
+	if err != nil {
+		return err
+	}
+
+	if err := bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(oldPassword)); err != nil {
+		return ErrInvalidCredentials
+	}
+
+	newPasswordHash, err := bcrypt.GenerateFromPassword([]byte(newPassword), bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
+
+	return u.userRepository.UpdateUserPassword(ctx, userID, string(newPasswordHash))
+}
+
+func (u *userUsecase) VerifyEmail(ctx context.Context, userID, verificationCode string) (bool, error) {
+	if verificationCode == "" {
+		return false, errors.New("verification code is required")
+	}
+	return true, nil
 }

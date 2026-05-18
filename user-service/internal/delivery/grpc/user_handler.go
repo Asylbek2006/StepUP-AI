@@ -114,3 +114,40 @@ func (h *UserGRPCHandler) ResetPassword(ctx context.Context, req *pb.ResetPasswo
 	}
 	return &pb.ResetPasswordResponse{Success: true}, nil
 }
+func (h *UserGRPCHandler) DeleteUser(ctx context.Context, req *pb.DeleteUserRequest) (*pb.DeleteUserResponse, error) {
+	if err := h.userUsecase.DeleteUser(ctx, req.UserId); err != nil {
+		return nil, status.Error(codes.Internal, "failed to delete user")
+	}
+	return &pb.DeleteUserResponse{Success: true}, nil
+}
+
+func (h *UserGRPCHandler) GetUserByID(ctx context.Context, req *pb.GetUserByIDRequest) (*pb.GetUserByIDResponse, error) {
+	user, err := h.userUsecase.GetUserByID(ctx, req.UserId)
+	if err != nil {
+		return nil, status.Error(codes.NotFound, "user not found")
+	}
+	return &pb.GetUserByIDResponse{
+		UserId:    user.ID,
+		Email:     user.Email,
+		FullName:  user.FullName,
+		CreatedAt: user.CreatedAt.Format("2006-01-02 15:04:05"),
+	}, nil
+}
+
+func (h *UserGRPCHandler) ChangePassword(ctx context.Context, req *pb.ChangePasswordRequest) (*pb.ChangePasswordResponse, error) {
+	if err := h.userUsecase.ChangePassword(ctx, req.UserId, req.OldPassword, req.NewPassword); err != nil {
+		if errors.Is(err, usecase.ErrInvalidCredentials) {
+			return nil, status.Error(codes.Unauthenticated, "invalid old password")
+		}
+		return nil, status.Error(codes.Internal, "failed to change password")
+	}
+	return &pb.ChangePasswordResponse{Success: true}, nil
+}
+
+func (h *UserGRPCHandler) VerifyEmail(ctx context.Context, req *pb.VerifyEmailRequest) (*pb.VerifyEmailResponse, error) {
+	verified, err := h.userUsecase.VerifyEmail(ctx, req.UserId, req.VerificationCode)
+	if err != nil {
+		return nil, status.Error(codes.InvalidArgument, "verification failed")
+	}
+	return &pb.VerifyEmailResponse{Verified: verified}, nil
+}

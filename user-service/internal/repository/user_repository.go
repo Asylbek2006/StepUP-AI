@@ -22,6 +22,7 @@ type UserRepository interface {
 	GetPasswordResetToken(ctx context.Context, tokenHash string) (*entity.PasswordResetToken, error)
 	MarkPasswordResetTokenAsUsed(ctx context.Context, tokenHash string) error
 	UpdateUserPassword(ctx context.Context, userID string, passwordHash string) error
+	DeleteUser(ctx context.Context, userID string) error
 }
 
 type PostgresUserRepository struct {
@@ -169,5 +170,10 @@ func (r *PostgresUserRepository) MarkPasswordResetTokenAsUsed(ctx context.Contex
 func (r *PostgresUserRepository) UpdateUserPassword(ctx context.Context, userID string, passwordHash string) error {
 	query := `UPDATE users SET password_hash = $1, updated_at = $2 WHERE id = $3`
 	_, err := r.db.ExecContext(ctx, query, passwordHash, time.Now(), userID)
+	return err
+}
+func (r *PostgresUserRepository) DeleteUser(ctx context.Context, userID string) error {
+	query := `DELETE FROM users WHERE id = $1`
+	_, err := r.db.ExecContext(ctx, query, userID)
 	return err
 }
