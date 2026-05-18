@@ -2,8 +2,10 @@ package main
 
 import (
 	"log"
+	"net/http"
 	"os"
 
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
@@ -48,6 +50,15 @@ func main() {
 		log.Fatalf("failed to connect to ai service: %v", err)
 	}
 	defer aiServiceConnection.Close()
+
+	go func() {
+		metricsHttpMux := http.NewServeMux()
+		metricsHttpMux.Handle("/metrics", promhttp.Handler())
+		log.Printf("metrics server running on port 9100")
+		if err := http.ListenAndServe(":9100", metricsHttpMux); err != nil {
+			log.Printf("metrics server failed: %v", err)
+		}
+	}()
 
 	userHandler := handler.NewUserHandler(userServiceConnection)
 	universityHandler := handler.NewUniversityHandler(universityServiceConnection)

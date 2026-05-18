@@ -5,12 +5,14 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"net/http"
 	"os"
 
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/lib/pq"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 
 	aigrpc "github.com/stepup-ai/ai-service/internal/delivery/grpc"
@@ -60,6 +62,15 @@ func main() {
 	if err := db.Ping(); err != nil {
 		log.Fatalf("failed to ping database: %v", err)
 	}
+
+	go func() {
+		metricsHttpMux := http.NewServeMux()
+		metricsHttpMux.Handle("/metrics", promhttp.Handler())
+		log.Printf("metrics server running on port 9103")
+		if err := http.ListenAndServe(":9103", metricsHttpMux); err != nil {
+			log.Printf("metrics server failed: %v", err)
+		}
+	}()
 
 	driver, err := postgres.WithInstance(db, &postgres.Config{})
 	if err != nil {
