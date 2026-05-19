@@ -4,12 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"strings"
 	"time"
 
-	"github.com/google/generative-ai-go/genai"
 	"github.com/google/uuid"
-	"google.golang.org/api/option"
+	openai "github.com/sashabaranov/go-openai"
 
 	"github.com/stepup-ai/ai-service/internal/entity"
 	"github.com/stepup-ai/ai-service/internal/repository"
@@ -25,48 +23,14 @@ type AIUsecase interface {
 
 type aiUsecase struct {
 	aiRepository repository.AIRepository
-	geminiClient *genai.Client
+	openaiClient *openai.Client
 }
 
-func NewAIUsecase(aiRepository repository.AIRepository, geminiAPIKey string) AIUsecase {
-	client, err := genai.NewClient(context.Background(), option.WithAPIKey(geminiAPIKey))
-	if err != nil {
-		panic(fmt.Sprintf("failed to create gemini client: %v", err))
-	}
+func NewAIUsecase(aiRepository repository.AIRepository, openaiAPIKey string) AIUsecase {
 	return &aiUsecase{
 		aiRepository: aiRepository,
-		geminiClient: client,
+		openaiClient: openai.NewClient(openaiAPIKey),
 	}
-}
-
-func (u *aiUsecase) generateContent(ctx context.Context, prompt string) (string, error) {
-	model := u.geminiClient.GenerativeModel("gemini-1.5-flash")
-	resp, err := model.GenerateContent(ctx, genai.Text(prompt))
-	if err != nil {
-		return "", err
-	}
-	if len(resp.Candidates) == 0 || resp.Candidates[0].Content == nil {
-		return "", fmt.Errorf("empty response from gemini")
-	}
-	var sb strings.Builder
-	for _, part := range resp.Candidates[0].Content.Parts {
-		if t, ok := part.(genai.Text); ok {
-			sb.WriteString(string(t))
-		}
-	}
-	return cleanJSON(sb.String()), nil
-}
-
-// cleanJSON removes markdown code blocks that Gemini sometimes wraps around JSON
-func cleanJSON(s string) string {
-	s = strings.TrimSpace(s)
-	if strings.HasPrefix(s, "```") {
-		s = strings.TrimPrefix(s, "```json")
-		s = strings.TrimPrefix(s, "```")
-		s = strings.TrimSuffix(s, "```")
-		s = strings.TrimSpace(s)
-	}
-	return s
 }
 
 func (u *aiUsecase) AnalyzeAdmissionChances(ctx context.Context, userID, universityID string, gpa float32, satScore int32, ieltsScore float32) (*entity.AdmissionAnalysis, error) {
@@ -77,7 +41,7 @@ func (u *aiUsecase) AnalyzeAdmissionChances(ctx context.Context, userID, univers
     IELTS Score: %.1f
     University ID: %s
 
-    Respond ONLY in this JSON format (no markdown, no code blocks):
+    Respond ONLY in this JSON format:
     {
       "admission_chance_percentage": 75.5,
       "weak_areas": ["area1", "area2"],
@@ -86,7 +50,12 @@ func (u *aiUsecase) AnalyzeAdmissionChances(ctx context.Context, userID, univers
     }
   `, gpa, satScore, ieltsScore, universityID)
 
-	text, err := u.generateContent(ctx, prompt)
+	response, err := u.openaiClient.CreateChatCompletion(ctx, openai.ChatCompletionRequest{
+		Model: openai.GPT4oMini,
+		Messages: []openai.ChatCompletionMessage{
+			{Role: openai.ChatMessageRoleUser, Content: prompt},
+		},
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -97,8 +66,9 @@ func (u *aiUsecase) AnalyzeAdmissionChances(ctx context.Context, userID, univers
 		ImprovementSuggestions    []string `json:"improvement_suggestions"`
 		GapAnalysis               string   `json:"gap_analysis"`
 	}
-	if err := json.Unmarshal([]byte(text), &result); err != nil {
-		return nil, fmt.Errorf("failed to parse gemini response: %w", err)
+
+	if err := json.Unmarshal([]byte(response.Choices[0].Message.Content), &result); err != nil {
+		return nil, err
 	}
 
 	analysis := &entity.AdmissionAnalysis{
@@ -115,6 +85,7 @@ func (u *aiUsecase) AnalyzeAdmissionChances(ctx context.Context, userID, univers
 	if err := u.aiRepository.SaveAdmissionAnalysis(ctx, analysis); err != nil {
 		return nil, err
 	}
+
 	return analysis, nil
 }
 
@@ -124,7 +95,7 @@ func (u *aiUsecase) GenerateRoadmap(ctx context.Context, userID, targetUniversit
     Months until application: %d
     Target University ID: %s
 
-    Respond ONLY in this JSON format (no markdown, no code blocks):
+    Respond ONLY in this JSON format:
     {
       "steps": [
         {
@@ -136,8 +107,12 @@ func (u *aiUsecase) GenerateRoadmap(ctx context.Context, userID, targetUniversit
       ]
     }
   `, monthsUntilApplication, targetUniversityID)
-
-	text, err := u.generateContent(ctx, prompt)
+	response, err := u.openaiClient.CreateChatCompletion(ctx, openai.ChatCompletionRequest{
+		Model: openai.GPT4oMini,
+		Messages: []openai.ChatCompletionMessage{
+			{Role: openai.ChatMessageRoleUser, Content: prompt},
+		},
+	})
 	if err != nil {
 		return nil, nil, err
 	}
@@ -150,8 +125,9 @@ func (u *aiUsecase) GenerateRoadmap(ctx context.Context, userID, targetUniversit
 			Category    string `json:"category"`
 		} `json:"steps"`
 	}
-	if err := json.Unmarshal([]byte(text), &result); err != nil {
-		return nil, nil, fmt.Errorf("failed to parse gemini response: %w", err)
+
+	if err := json.Unmarshal([]byte(response.Choices[0].Message.Content), &result); err != nil {
+		return nil, nil, err
 	}
 
 	roadmap := &entity.Roadmap{
@@ -175,6 +151,7 @@ func (u *aiUsecase) GenerateRoadmap(ctx context.Context, userID, targetUniversit
 	if err := u.aiRepository.SaveRoadmap(ctx, roadmap, roadmapSteps); err != nil {
 		return nil, nil, err
 	}
+
 	return roadmap, roadmapSteps, nil
 }
 
@@ -186,7 +163,7 @@ func (u *aiUsecase) ReviewEssay(ctx context.Context, userID, essayText, universi
     Word Limit: %d
     Essay: %s
 
-    Respond ONLY in this JSON format (no markdown, no code blocks):
+    Respond ONLY in this JSON format:
     {
       "grammar_score": 8.5,
       "coherence_score": 7.0,
@@ -196,7 +173,12 @@ func (u *aiUsecase) ReviewEssay(ctx context.Context, userID, essayText, universi
     }
   `, universityName, programName, wordLimit, essayText)
 
-	text, err := u.generateContent(ctx, prompt)
+	response, err := u.openaiClient.CreateChatCompletion(ctx, openai.ChatCompletionRequest{
+		Model: openai.GPT4oMini,
+		Messages: []openai.ChatCompletionMessage{
+			{Role: openai.ChatMessageRoleUser, Content: prompt},
+		},
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -208,8 +190,9 @@ func (u *aiUsecase) ReviewEssay(ctx context.Context, userID, essayText, universi
 		RelevanceScore         float32  `json:"relevance_score"`
 		ImprovementSuggestions []string `json:"improvement_suggestions"`
 	}
-	if err := json.Unmarshal([]byte(text), &result); err != nil {
-		return nil, fmt.Errorf("failed to parse gemini response: %w", err)
+
+	if err := json.Unmarshal([]byte(response.Choices[0].Message.Content), &result); err != nil {
+		return nil, err
 	}
 
 	review := &entity.EssayReview{
@@ -229,6 +212,7 @@ func (u *aiUsecase) ReviewEssay(ctx context.Context, userID, essayText, universi
 	if err := u.aiRepository.SaveEssayReview(ctx, review); err != nil {
 		return nil, err
 	}
+
 	return review, nil
 }
 
@@ -239,13 +223,18 @@ func (u *aiUsecase) MatchGrants(ctx context.Context, userID, country string, gpa
     GPA: %.2f
     Achievements: %v
 
-    Respond ONLY in this JSON format (no markdown, no code blocks):
+    Respond ONLY in this JSON format:
     {
       "matched_grant_ids": ["grant_id_1", "grant_id_2"]
     }
   `, country, gpa, achievements)
 
-	text, err := u.generateContent(ctx, prompt)
+	response, err := u.openaiClient.CreateChatCompletion(ctx, openai.ChatCompletionRequest{
+		Model: openai.GPT4oMini,
+		Messages: []openai.ChatCompletionMessage{
+			{Role: openai.ChatMessageRoleUser, Content: prompt},
+		},
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -253,9 +242,10 @@ func (u *aiUsecase) MatchGrants(ctx context.Context, userID, country string, gpa
 	var result struct {
 		MatchedGrantIDs []string `json:"matched_grant_ids"`
 	}
-	if err := json.Unmarshal([]byte(text), &result); err != nil {
-		return nil, fmt.Errorf("failed to parse gemini response: %w", err)
+	if err := json.Unmarshal([]byte(response.Choices[0].Message.Content), &result); err != nil {
+		return nil, err
 	}
+
 	return result.MatchedGrantIDs, nil
 }
 
