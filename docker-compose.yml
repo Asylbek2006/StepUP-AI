@@ -96,6 +96,13 @@ services:
     depends_on:
       - postgres-ai
       - nats
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - api-gateway
+
 
   prometheus:
     image: prom/prometheus:latest
