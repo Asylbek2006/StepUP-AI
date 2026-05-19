@@ -7,7 +7,7 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o api-gateway ./cmd/main
+RUN go build -o ai-service ./cmd
 
 FROM alpine:latest
 
@@ -15,8 +15,9 @@ RUN apk --no-cache add ca-certificates
 
 WORKDIR /root/
 
-COPY --from=builder /app/api-gateway .
+COPY --from=builder /app/ai-service .
+COPY --from=builder /app/migrations ./migrations
 
-EXPOSE 8080
+EXPOSE 9003
 
-CMD ["./api-gateway"]
+CMD ["./ai-service"]
