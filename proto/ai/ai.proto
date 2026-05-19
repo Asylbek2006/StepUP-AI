@@ -8,6 +8,13 @@ service AIService {
   rpc ReviewEssay(ReviewEssayRequest) returns (ReviewEssayResponse);
   rpc MatchGrants(MatchGrantsRequest) returns (MatchGrantsResponse);
   rpc GetAnalysisHistory(GetAnalysisHistoryRequest) returns (GetAnalysisHistoryResponse);
+  rpc GetRoadmapByUserID(GetRoadmapByUserIDRequest) returns (GetRoadmapByUserIDResponse);
+  rpc GetEssayReviewsByUserID(GetEssayReviewsByUserIDRequest) returns (GetEssayReviewsByUserIDResponse);
+  rpc GetEssayReviewByID(GetEssayReviewByIDRequest) returns (GetEssayReviewByIDResponse);
+  rpc DeleteAnalysis(DeleteAnalysisRequest) returns (DeleteAnalysisResponse);
+  rpc CompareUniversities(CompareUniversitiesRequest) returns (CompareUniversitiesResponse);
+  rpc GetRecommendedUniversities(GetRecommendedUniversitiesRequest) returns (GetRecommendedUniversitiesResponse);
+  rpc GetAdmissionAnalysisByID(GetAdmissionAnalysisByIDRequest) returns (GetAdmissionAnalysisByIDResponse);
 }
 
 message AnalyzeAdmissionChancesRequest {
@@ -67,4 +74,51 @@ message MatchGrantsResponse {
 message GetAnalysisHistoryRequest { string user_id = 1; }
 message GetAnalysisHistoryResponse {
   repeated string analysis_ids = 1;
+}
+
+message GetRoadmapByUserIDRequest { string user_id = 1; }
+message GetRoadmapByUserIDResponse {
+  string roadmap_id = 1;
+  repeated RoadmapStep steps = 2;
+}
+
+message GetEssayReviewsByUserIDRequest { string user_id = 1; }
+message GetEssayReviewsByUserIDResponse {
+  repeated string review_ids = 1;
+}
+
+message GetEssayReviewByIDRequest { string review_id = 1; }
+message GetEssayReviewByIDResponse {
+  string review_id = 1;
+  string essay_text = 2;
+  float grammar_score = 3;
+  float coherence_score = 4;
+}
+
+message DeleteAnalysisRequest { string analysis_id = 1; }
+message DeleteAnalysisResponse { bool success = 1; }
+
+message CompareUniversitiesRequest {
+  string university_id_one = 1;
+  string university_id_two = 2;
+}
+message CompareUniversitiesResponse {
+  string comparison_result = 1;
+  float chance_one = 2;
+  float chance_two = 3;
+}
+
+message GetRecommendedUniversitiesRequest {
+  string user_id = 1;
+  float gpa = 2;
+}
+message GetRecommendedUniversitiesResponse {
+  repeated string university_ids = 1;
+}
+
+message GetAdmissionAnalysisByIDRequest { string analysis_id = 1; }
+message GetAdmissionAnalysisByIDResponse {
+  string analysis_id = 1;
+  float admission_chance_percentage = 2;
+  string gap_analysis = 3;
 }

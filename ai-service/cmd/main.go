@@ -24,7 +24,7 @@ import (
 
 func main() {
 	databaseURL := os.Getenv("DATABASE_URL")
-	openaiAPIKey := os.Getenv("OPENAI_API_KEY")
+	geminiAPIKey := os.Getenv("AIzaSyDT4W-3zZJgX66sGn-Ll-YNW6IJCR2ZOSc")
 	grpcPort := os.Getenv("GRPC_PORT")
 
 	if grpcPort == "" {
@@ -80,7 +80,7 @@ func main() {
 	}
 
 	aiRepository := repository.NewPostgresAIRepository(db)
-	aiUsecase := usecase.NewAIUsecase(aiRepository, openaiAPIKey)
+	aiUsecase := usecase.NewAIUsecase(aiRepository, geminiAPIKey)
 	aiHandler := aigrpc.NewAIGRPCHandler(aiUsecase)
 
 	grpcServer := grpc.NewServer()
