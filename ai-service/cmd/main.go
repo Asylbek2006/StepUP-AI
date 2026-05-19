@@ -26,7 +26,7 @@ import (
 
 func main() {
 	databaseURL := os.Getenv("DATABASE_URL")
-	openaiAPIKey := os.Getenv("OPENAI_API_KEY")
+	openaiAPIKey := os.Getenv("GEMINI_API_KEY")
 	grpcPort := os.Getenv("GRPC_PORT")
 
 	if grpcPort == "" {

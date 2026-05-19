@@ -77,7 +77,7 @@ services:
     environment:
       DATABASE_URL: postgres://postgres:postgres@postgres:5432/ai_db?sslmode=disable
       NATS_URL: nats://nats:4222
-      OPENAI_API_KEY: sk-test
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
       GRPC_PORT: "9003"
     depends_on:
       postgres:
