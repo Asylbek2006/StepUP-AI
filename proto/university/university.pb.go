@@ -853,6 +853,478 @@ func (x *GetSavedGrantsResponse) GetGrants() []*Grant {
 	return nil
 }
 
+type RemoveSavedUniversityRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	UniversityId  string                 `protobuf:"bytes,2,opt,name=university_id,json=universityId,proto3" json:"university_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RemoveSavedUniversityRequest) Reset() {
+	*x = RemoveSavedUniversityRequest{}
+	mi := &file_proto_university_university_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RemoveSavedUniversityRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveSavedUniversityRequest) ProtoMessage() {}
+
+func (x *RemoveSavedUniversityRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_university_university_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveSavedUniversityRequest.ProtoReflect.Descriptor instead.
+func (*RemoveSavedUniversityRequest) Descriptor() ([]byte, []int) {
+	return file_proto_university_university_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *RemoveSavedUniversityRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *RemoveSavedUniversityRequest) GetUniversityId() string {
+	if x != nil {
+		return x.UniversityId
+	}
+	return ""
+}
+
+type RemoveSavedUniversityResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RemoveSavedUniversityResponse) Reset() {
+	*x = RemoveSavedUniversityResponse{}
+	mi := &file_proto_university_university_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RemoveSavedUniversityResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveSavedUniversityResponse) ProtoMessage() {}
+
+func (x *RemoveSavedUniversityResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_university_university_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveSavedUniversityResponse.ProtoReflect.Descriptor instead.
+func (*RemoveSavedUniversityResponse) Descriptor() ([]byte, []int) {
+	return file_proto_university_university_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *RemoveSavedUniversityResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+type RemoveSavedGrantRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	GrantId       string                 `protobuf:"bytes,2,opt,name=grant_id,json=grantId,proto3" json:"grant_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RemoveSavedGrantRequest) Reset() {
+	*x = RemoveSavedGrantRequest{}
+	mi := &file_proto_university_university_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RemoveSavedGrantRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveSavedGrantRequest) ProtoMessage() {}
+
+func (x *RemoveSavedGrantRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_university_university_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveSavedGrantRequest.ProtoReflect.Descriptor instead.
+func (*RemoveSavedGrantRequest) Descriptor() ([]byte, []int) {
+	return file_proto_university_university_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *RemoveSavedGrantRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *RemoveSavedGrantRequest) GetGrantId() string {
+	if x != nil {
+		return x.GrantId
+	}
+	return ""
+}
+
+type RemoveSavedGrantResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RemoveSavedGrantResponse) Reset() {
+	*x = RemoveSavedGrantResponse{}
+	mi := &file_proto_university_university_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RemoveSavedGrantResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveSavedGrantResponse) ProtoMessage() {}
+
+func (x *RemoveSavedGrantResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_university_university_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveSavedGrantResponse.ProtoReflect.Descriptor instead.
+func (*RemoveSavedGrantResponse) Descriptor() ([]byte, []int) {
+	return file_proto_university_university_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *RemoveSavedGrantResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+type GetGrantDetailsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	GrantId       string                 `protobuf:"bytes,1,opt,name=grant_id,json=grantId,proto3" json:"grant_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetGrantDetailsRequest) Reset() {
+	*x = GetGrantDetailsRequest{}
+	mi := &file_proto_university_university_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetGrantDetailsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetGrantDetailsRequest) ProtoMessage() {}
+
+func (x *GetGrantDetailsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_university_university_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetGrantDetailsRequest.ProtoReflect.Descriptor instead.
+func (*GetGrantDetailsRequest) Descriptor() ([]byte, []int) {
+	return file_proto_university_university_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *GetGrantDetailsRequest) GetGrantId() string {
+	if x != nil {
+		return x.GrantId
+	}
+	return ""
+}
+
+type GetGrantDetailsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Grant         *Grant                 `protobuf:"bytes,1,opt,name=grant,proto3" json:"grant,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetGrantDetailsResponse) Reset() {
+	*x = GetGrantDetailsResponse{}
+	mi := &file_proto_university_university_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetGrantDetailsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetGrantDetailsResponse) ProtoMessage() {}
+
+func (x *GetGrantDetailsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_university_university_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetGrantDetailsResponse.ProtoReflect.Descriptor instead.
+func (*GetGrantDetailsResponse) Descriptor() ([]byte, []int) {
+	return file_proto_university_university_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *GetGrantDetailsResponse) GetGrant() *Grant {
+	if x != nil {
+		return x.Grant
+	}
+	return nil
+}
+
+type ListUniversitiesByCategoryRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Category      string                 `protobuf:"bytes,1,opt,name=category,proto3" json:"category,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListUniversitiesByCategoryRequest) Reset() {
+	*x = ListUniversitiesByCategoryRequest{}
+	mi := &file_proto_university_university_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListUniversitiesByCategoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListUniversitiesByCategoryRequest) ProtoMessage() {}
+
+func (x *ListUniversitiesByCategoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_university_university_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListUniversitiesByCategoryRequest.ProtoReflect.Descriptor instead.
+func (*ListUniversitiesByCategoryRequest) Descriptor() ([]byte, []int) {
+	return file_proto_university_university_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *ListUniversitiesByCategoryRequest) GetCategory() string {
+	if x != nil {
+		return x.Category
+	}
+	return ""
+}
+
+type ListUniversitiesByCategoryResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Universities  []*University          `protobuf:"bytes,1,rep,name=universities,proto3" json:"universities,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListUniversitiesByCategoryResponse) Reset() {
+	*x = ListUniversitiesByCategoryResponse{}
+	mi := &file_proto_university_university_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListUniversitiesByCategoryResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListUniversitiesByCategoryResponse) ProtoMessage() {}
+
+func (x *ListUniversitiesByCategoryResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_university_university_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListUniversitiesByCategoryResponse.ProtoReflect.Descriptor instead.
+func (*ListUniversitiesByCategoryResponse) Descriptor() ([]byte, []int) {
+	return file_proto_university_university_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *ListUniversitiesByCategoryResponse) GetUniversities() []*University {
+	if x != nil {
+		return x.Universities
+	}
+	return nil
+}
+
+type GetUniversityStatisticsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetUniversityStatisticsRequest) Reset() {
+	*x = GetUniversityStatisticsRequest{}
+	mi := &file_proto_university_university_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUniversityStatisticsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUniversityStatisticsRequest) ProtoMessage() {}
+
+func (x *GetUniversityStatisticsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_university_university_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUniversityStatisticsRequest.ProtoReflect.Descriptor instead.
+func (*GetUniversityStatisticsRequest) Descriptor() ([]byte, []int) {
+	return file_proto_university_university_proto_rawDescGZIP(), []int{24}
+}
+
+type GetUniversityStatisticsResponse struct {
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	TotalUniversities int32                  `protobuf:"varint,1,opt,name=total_universities,json=totalUniversities,proto3" json:"total_universities,omitempty"`
+	TotalReach        int32                  `protobuf:"varint,2,opt,name=total_reach,json=totalReach,proto3" json:"total_reach,omitempty"`
+	TotalTarget       int32                  `protobuf:"varint,3,opt,name=total_target,json=totalTarget,proto3" json:"total_target,omitempty"`
+	TotalSafety       int32                  `protobuf:"varint,4,opt,name=total_safety,json=totalSafety,proto3" json:"total_safety,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *GetUniversityStatisticsResponse) Reset() {
+	*x = GetUniversityStatisticsResponse{}
+	mi := &file_proto_university_university_proto_msgTypes[25]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUniversityStatisticsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUniversityStatisticsResponse) ProtoMessage() {}
+
+func (x *GetUniversityStatisticsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_university_university_proto_msgTypes[25]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUniversityStatisticsResponse.ProtoReflect.Descriptor instead.
+func (*GetUniversityStatisticsResponse) Descriptor() ([]byte, []int) {
+	return file_proto_university_university_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *GetUniversityStatisticsResponse) GetTotalUniversities() int32 {
+	if x != nil {
+		return x.TotalUniversities
+	}
+	return 0
+}
+
+func (x *GetUniversityStatisticsResponse) GetTotalReach() int32 {
+	if x != nil {
+		return x.TotalReach
+	}
+	return 0
+}
+
+func (x *GetUniversityStatisticsResponse) GetTotalTarget() int32 {
+	if x != nil {
+		return x.TotalTarget
+	}
+	return 0
+}
+
+func (x *GetUniversityStatisticsResponse) GetTotalSafety() int32 {
+	if x != nil {
+		return x.TotalSafety
+	}
+	return 0
+}
+
 var File_proto_university_university_proto protoreflect.FileDescriptor
 
 const file_proto_university_university_proto_rawDesc = "" +
@@ -909,7 +1381,32 @@ const file_proto_university_university_proto_rawDesc = "" +
 	"\x15GetSavedGrantsRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\"C\n" +
 	"\x16GetSavedGrantsResponse\x12)\n" +
-	"\x06grants\x18\x01 \x03(\v2\x11.university.GrantR\x06grants2\x9d\x05\n" +
+	"\x06grants\x18\x01 \x03(\v2\x11.university.GrantR\x06grants\"\\\n" +
+	"\x1cRemoveSavedUniversityRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\x12#\n" +
+	"\runiversity_id\x18\x02 \x01(\tR\funiversityId\"9\n" +
+	"\x1dRemoveSavedUniversityResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"M\n" +
+	"\x17RemoveSavedGrantRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x19\n" +
+	"\bgrant_id\x18\x02 \x01(\tR\agrantId\"4\n" +
+	"\x18RemoveSavedGrantResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"3\n" +
+	"\x16GetGrantDetailsRequest\x12\x19\n" +
+	"\bgrant_id\x18\x01 \x01(\tR\agrantId\"B\n" +
+	"\x17GetGrantDetailsResponse\x12'\n" +
+	"\x05grant\x18\x01 \x01(\v2\x11.university.GrantR\x05grant\"?\n" +
+	"!ListUniversitiesByCategoryRequest\x12\x1a\n" +
+	"\bcategory\x18\x01 \x01(\tR\bcategory\"`\n" +
+	"\"ListUniversitiesByCategoryResponse\x12:\n" +
+	"\funiversities\x18\x01 \x03(\v2\x16.university.UniversityR\funiversities\" \n" +
+	"\x1eGetUniversityStatisticsRequest\"\xb7\x01\n" +
+	"\x1fGetUniversityStatisticsResponse\x12-\n" +
+	"\x12total_universities\x18\x01 \x01(\x05R\x11totalUniversities\x12\x1f\n" +
+	"\vtotal_reach\x18\x02 \x01(\x05R\n" +
+	"totalReach\x12!\n" +
+	"\ftotal_target\x18\x03 \x01(\x05R\vtotalTarget\x12!\n" +
+	"\ftotal_safety\x18\x04 \x01(\x05R\vtotalSafety2\xb7\t\n" +
 	"\x11UniversityService\x12c\n" +
 	"\x12SearchUniversities\x12%.university.SearchUniversitiesRequest\x1a&.university.SearchUniversitiesResponse\x12i\n" +
 	"\x14GetUniversityDetails\x12'.university.GetUniversityDetailsRequest\x1a(.university.GetUniversityDetailsResponse\x12W\n" +
@@ -917,7 +1414,12 @@ const file_proto_university_university_proto_rawDesc = "" +
 	"\x14GetSavedUniversities\x12'.university.GetSavedUniversitiesRequest\x1a(.university.GetSavedUniversitiesResponse\x12Q\n" +
 	"\fSearchGrants\x12\x1f.university.SearchGrantsRequest\x1a .university.SearchGrantsResponse\x12H\n" +
 	"\tSaveGrant\x12\x1c.university.SaveGrantRequest\x1a\x1d.university.SaveGrantResponse\x12W\n" +
-	"\x0eGetSavedGrants\x12!.university.GetSavedGrantsRequest\x1a\".university.GetSavedGrantsResponseB'Z%github.com/stepup-ai/proto/universityb\x06proto3"
+	"\x0eGetSavedGrants\x12!.university.GetSavedGrantsRequest\x1a\".university.GetSavedGrantsResponse\x12l\n" +
+	"\x15RemoveSavedUniversity\x12(.university.RemoveSavedUniversityRequest\x1a).university.RemoveSavedUniversityResponse\x12]\n" +
+	"\x10RemoveSavedGrant\x12#.university.RemoveSavedGrantRequest\x1a$.university.RemoveSavedGrantResponse\x12Z\n" +
+	"\x0fGetGrantDetails\x12\".university.GetGrantDetailsRequest\x1a#.university.GetGrantDetailsResponse\x12{\n" +
+	"\x1aListUniversitiesByCategory\x12-.university.ListUniversitiesByCategoryRequest\x1a..university.ListUniversitiesByCategoryResponse\x12r\n" +
+	"\x17GetUniversityStatistics\x12*.university.GetUniversityStatisticsRequest\x1a+.university.GetUniversityStatisticsResponseB'Z%github.com/stepup-ai/proto/universityb\x06proto3"
 
 var (
 	file_proto_university_university_proto_rawDescOnce sync.Once
@@ -931,24 +1433,34 @@ func file_proto_university_university_proto_rawDescGZIP() []byte {
 	return file_proto_university_university_proto_rawDescData
 }
 
-var file_proto_university_university_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_proto_university_university_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
 var file_proto_university_university_proto_goTypes = []any{
-	(*SearchUniversitiesRequest)(nil),    // 0: university.SearchUniversitiesRequest
-	(*SearchUniversitiesResponse)(nil),   // 1: university.SearchUniversitiesResponse
-	(*University)(nil),                   // 2: university.University
-	(*GetUniversityDetailsRequest)(nil),  // 3: university.GetUniversityDetailsRequest
-	(*GetUniversityDetailsResponse)(nil), // 4: university.GetUniversityDetailsResponse
-	(*SaveUniversityRequest)(nil),        // 5: university.SaveUniversityRequest
-	(*SaveUniversityResponse)(nil),       // 6: university.SaveUniversityResponse
-	(*GetSavedUniversitiesRequest)(nil),  // 7: university.GetSavedUniversitiesRequest
-	(*GetSavedUniversitiesResponse)(nil), // 8: university.GetSavedUniversitiesResponse
-	(*SearchGrantsRequest)(nil),          // 9: university.SearchGrantsRequest
-	(*SearchGrantsResponse)(nil),         // 10: university.SearchGrantsResponse
-	(*Grant)(nil),                        // 11: university.Grant
-	(*SaveGrantRequest)(nil),             // 12: university.SaveGrantRequest
-	(*SaveGrantResponse)(nil),            // 13: university.SaveGrantResponse
-	(*GetSavedGrantsRequest)(nil),        // 14: university.GetSavedGrantsRequest
-	(*GetSavedGrantsResponse)(nil),       // 15: university.GetSavedGrantsResponse
+	(*SearchUniversitiesRequest)(nil),          // 0: university.SearchUniversitiesRequest
+	(*SearchUniversitiesResponse)(nil),         // 1: university.SearchUniversitiesResponse
+	(*University)(nil),                         // 2: university.University
+	(*GetUniversityDetailsRequest)(nil),        // 3: university.GetUniversityDetailsRequest
+	(*GetUniversityDetailsResponse)(nil),       // 4: university.GetUniversityDetailsResponse
+	(*SaveUniversityRequest)(nil),              // 5: university.SaveUniversityRequest
+	(*SaveUniversityResponse)(nil),             // 6: university.SaveUniversityResponse
+	(*GetSavedUniversitiesRequest)(nil),        // 7: university.GetSavedUniversitiesRequest
+	(*GetSavedUniversitiesResponse)(nil),       // 8: university.GetSavedUniversitiesResponse
+	(*SearchGrantsRequest)(nil),                // 9: university.SearchGrantsRequest
+	(*SearchGrantsResponse)(nil),               // 10: university.SearchGrantsResponse
+	(*Grant)(nil),                              // 11: university.Grant
+	(*SaveGrantRequest)(nil),                   // 12: university.SaveGrantRequest
+	(*SaveGrantResponse)(nil),                  // 13: university.SaveGrantResponse
+	(*GetSavedGrantsRequest)(nil),              // 14: university.GetSavedGrantsRequest
+	(*GetSavedGrantsResponse)(nil),             // 15: university.GetSavedGrantsResponse
+	(*RemoveSavedUniversityRequest)(nil),       // 16: university.RemoveSavedUniversityRequest
+	(*RemoveSavedUniversityResponse)(nil),      // 17: university.RemoveSavedUniversityResponse
+	(*RemoveSavedGrantRequest)(nil),            // 18: university.RemoveSavedGrantRequest
+	(*RemoveSavedGrantResponse)(nil),           // 19: university.RemoveSavedGrantResponse
+	(*GetGrantDetailsRequest)(nil),             // 20: university.GetGrantDetailsRequest
+	(*GetGrantDetailsResponse)(nil),            // 21: university.GetGrantDetailsResponse
+	(*ListUniversitiesByCategoryRequest)(nil),  // 22: university.ListUniversitiesByCategoryRequest
+	(*ListUniversitiesByCategoryResponse)(nil), // 23: university.ListUniversitiesByCategoryResponse
+	(*GetUniversityStatisticsRequest)(nil),     // 24: university.GetUniversityStatisticsRequest
+	(*GetUniversityStatisticsResponse)(nil),    // 25: university.GetUniversityStatisticsResponse
 }
 var file_proto_university_university_proto_depIdxs = []int32{
 	2,  // 0: university.SearchUniversitiesResponse.universities:type_name -> university.University
@@ -956,25 +1468,37 @@ var file_proto_university_university_proto_depIdxs = []int32{
 	2,  // 2: university.GetSavedUniversitiesResponse.universities:type_name -> university.University
 	11, // 3: university.SearchGrantsResponse.grants:type_name -> university.Grant
 	11, // 4: university.GetSavedGrantsResponse.grants:type_name -> university.Grant
-	0,  // 5: university.UniversityService.SearchUniversities:input_type -> university.SearchUniversitiesRequest
-	3,  // 6: university.UniversityService.GetUniversityDetails:input_type -> university.GetUniversityDetailsRequest
-	5,  // 7: university.UniversityService.SaveUniversity:input_type -> university.SaveUniversityRequest
-	7,  // 8: university.UniversityService.GetSavedUniversities:input_type -> university.GetSavedUniversitiesRequest
-	9,  // 9: university.UniversityService.SearchGrants:input_type -> university.SearchGrantsRequest
-	12, // 10: university.UniversityService.SaveGrant:input_type -> university.SaveGrantRequest
-	14, // 11: university.UniversityService.GetSavedGrants:input_type -> university.GetSavedGrantsRequest
-	1,  // 12: university.UniversityService.SearchUniversities:output_type -> university.SearchUniversitiesResponse
-	4,  // 13: university.UniversityService.GetUniversityDetails:output_type -> university.GetUniversityDetailsResponse
-	6,  // 14: university.UniversityService.SaveUniversity:output_type -> university.SaveUniversityResponse
-	8,  // 15: university.UniversityService.GetSavedUniversities:output_type -> university.GetSavedUniversitiesResponse
-	10, // 16: university.UniversityService.SearchGrants:output_type -> university.SearchGrantsResponse
-	13, // 17: university.UniversityService.SaveGrant:output_type -> university.SaveGrantResponse
-	15, // 18: university.UniversityService.GetSavedGrants:output_type -> university.GetSavedGrantsResponse
-	12, // [12:19] is the sub-list for method output_type
-	5,  // [5:12] is the sub-list for method input_type
-	5,  // [5:5] is the sub-list for extension type_name
-	5,  // [5:5] is the sub-list for extension extendee
-	0,  // [0:5] is the sub-list for field type_name
+	11, // 5: university.GetGrantDetailsResponse.grant:type_name -> university.Grant
+	2,  // 6: university.ListUniversitiesByCategoryResponse.universities:type_name -> university.University
+	0,  // 7: university.UniversityService.SearchUniversities:input_type -> university.SearchUniversitiesRequest
+	3,  // 8: university.UniversityService.GetUniversityDetails:input_type -> university.GetUniversityDetailsRequest
+	5,  // 9: university.UniversityService.SaveUniversity:input_type -> university.SaveUniversityRequest
+	7,  // 10: university.UniversityService.GetSavedUniversities:input_type -> university.GetSavedUniversitiesRequest
+	9,  // 11: university.UniversityService.SearchGrants:input_type -> university.SearchGrantsRequest
+	12, // 12: university.UniversityService.SaveGrant:input_type -> university.SaveGrantRequest
+	14, // 13: university.UniversityService.GetSavedGrants:input_type -> university.GetSavedGrantsRequest
+	16, // 14: university.UniversityService.RemoveSavedUniversity:input_type -> university.RemoveSavedUniversityRequest
+	18, // 15: university.UniversityService.RemoveSavedGrant:input_type -> university.RemoveSavedGrantRequest
+	20, // 16: university.UniversityService.GetGrantDetails:input_type -> university.GetGrantDetailsRequest
+	22, // 17: university.UniversityService.ListUniversitiesByCategory:input_type -> university.ListUniversitiesByCategoryRequest
+	24, // 18: university.UniversityService.GetUniversityStatistics:input_type -> university.GetUniversityStatisticsRequest
+	1,  // 19: university.UniversityService.SearchUniversities:output_type -> university.SearchUniversitiesResponse
+	4,  // 20: university.UniversityService.GetUniversityDetails:output_type -> university.GetUniversityDetailsResponse
+	6,  // 21: university.UniversityService.SaveUniversity:output_type -> university.SaveUniversityResponse
+	8,  // 22: university.UniversityService.GetSavedUniversities:output_type -> university.GetSavedUniversitiesResponse
+	10, // 23: university.UniversityService.SearchGrants:output_type -> university.SearchGrantsResponse
+	13, // 24: university.UniversityService.SaveGrant:output_type -> university.SaveGrantResponse
+	15, // 25: university.UniversityService.GetSavedGrants:output_type -> university.GetSavedGrantsResponse
+	17, // 26: university.UniversityService.RemoveSavedUniversity:output_type -> university.RemoveSavedUniversityResponse
+	19, // 27: university.UniversityService.RemoveSavedGrant:output_type -> university.RemoveSavedGrantResponse
+	21, // 28: university.UniversityService.GetGrantDetails:output_type -> university.GetGrantDetailsResponse
+	23, // 29: university.UniversityService.ListUniversitiesByCategory:output_type -> university.ListUniversitiesByCategoryResponse
+	25, // 30: university.UniversityService.GetUniversityStatistics:output_type -> university.GetUniversityStatisticsResponse
+	19, // [19:31] is the sub-list for method output_type
+	7,  // [7:19] is the sub-list for method input_type
+	7,  // [7:7] is the sub-list for extension type_name
+	7,  // [7:7] is the sub-list for extension extendee
+	0,  // [0:7] is the sub-list for field type_name
 }
 
 func init() { file_proto_university_university_proto_init() }
@@ -988,7 +1512,7 @@ func file_proto_university_university_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_university_university_proto_rawDesc), len(file_proto_university_university_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   16,
+			NumMessages:   26,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

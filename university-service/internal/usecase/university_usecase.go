@@ -18,6 +18,11 @@ type UniversityUsecase interface {
 	SearchGrants(ctx context.Context, country string, gpa float32) ([]*entity.Grant, error)
 	SaveGrant(ctx context.Context, userID, grantID string) error
 	GetSavedGrants(ctx context.Context, userID string) ([]*entity.Grant, error)
+	RemoveSavedUniversity(ctx context.Context, userID, universityID string) error
+	RemoveSavedGrant(ctx context.Context, userID, grantID string) error
+	GetGrantDetails(ctx context.Context, grantID string) (*entity.Grant, error)
+	ListUniversitiesByCategory(ctx context.Context, category string) ([]*entity.University, error)
+	GetUniversityStatistics(ctx context.Context) (int32, int32, int32, int32, error)
 }
 
 type universityUsecase struct {
@@ -66,4 +71,24 @@ func (u *universityUsecase) SaveGrant(ctx context.Context, userID, grantID strin
 
 func (u *universityUsecase) GetSavedGrants(ctx context.Context, userID string) ([]*entity.Grant, error) {
 	return u.universityRepository.GetSavedGrants(ctx, userID)
+}
+
+func (u *universityUsecase) RemoveSavedUniversity(ctx context.Context, userID, universityID string) error {
+	return u.universityRepository.RemoveSavedUniversity(ctx, userID, universityID)
+}
+
+func (u *universityUsecase) RemoveSavedGrant(ctx context.Context, userID, grantID string) error {
+	return u.universityRepository.RemoveSavedGrant(ctx, userID, grantID)
+}
+
+func (u *universityUsecase) GetGrantDetails(ctx context.Context, grantID string) (*entity.Grant, error) {
+	return u.universityRepository.GetGrantByID(ctx, grantID)
+}
+
+func (u *universityUsecase) ListUniversitiesByCategory(ctx context.Context, category string) ([]*entity.University, error) {
+	return u.universityRepository.ListUniversitiesByCategory(ctx, category)
+}
+
+func (u *universityUsecase) GetUniversityStatistics(ctx context.Context) (int32, int32, int32, int32, error) {
+	return u.universityRepository.GetUniversityStatistics(ctx)
 }

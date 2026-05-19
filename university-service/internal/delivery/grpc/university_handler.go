@@ -132,3 +132,67 @@ func (h *UniversityGRPCHandler) GetSavedGrants(ctx context.Context, req *pb.GetS
 
 	return &pb.GetSavedGrantsResponse{Grants: pbGrants}, nil
 }
+
+func (h *UniversityGRPCHandler) RemoveSavedUniversity(ctx context.Context, req *pb.RemoveSavedUniversityRequest) (*pb.RemoveSavedUniversityResponse, error) {
+	if err := h.universityUsecase.RemoveSavedUniversity(ctx, req.UserId, req.UniversityId); err != nil {
+		return nil, status.Error(codes.Internal, "failed to remove saved university")
+	}
+	return &pb.RemoveSavedUniversityResponse{Success: true}, nil
+}
+
+func (h *UniversityGRPCHandler) RemoveSavedGrant(ctx context.Context, req *pb.RemoveSavedGrantRequest) (*pb.RemoveSavedGrantResponse, error) {
+	if err := h.universityUsecase.RemoveSavedGrant(ctx, req.UserId, req.GrantId); err != nil {
+		return nil, status.Error(codes.Internal, "failed to remove saved grant")
+	}
+	return &pb.RemoveSavedGrantResponse{Success: true}, nil
+}
+
+func (h *UniversityGRPCHandler) GetGrantDetails(ctx context.Context, req *pb.GetGrantDetailsRequest) (*pb.GetGrantDetailsResponse, error) {
+	grant, err := h.universityUsecase.GetGrantDetails(ctx, req.GrantId)
+	if err != nil {
+		return nil, status.Error(codes.NotFound, "grant not found")
+	}
+	return &pb.GetGrantDetailsResponse{
+		Grant: &pb.Grant{
+			Id:          grant.ID,
+			Name:        grant.Name,
+			Description: grant.Description,
+			Amount:      grant.Amount,
+			Deadline:    grant.Deadline,
+		},
+	}, nil
+}
+
+func (h *UniversityGRPCHandler) ListUniversitiesByCategory(ctx context.Context, req *pb.ListUniversitiesByCategoryRequest) (*pb.ListUniversitiesByCategoryResponse, error) {
+	universities, err := h.universityUsecase.ListUniversitiesByCategory(ctx, req.Category)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "failed to list universities")
+	}
+
+	var pbUniversities []*pb.University
+	for _, u := range universities {
+		pbUniversities = append(pbUniversities, &pb.University{
+			Id:             u.ID,
+			Name:           u.Name,
+			Country:        u.Country,
+			AcceptanceRate: u.AcceptanceRate,
+			Type:           u.Type,
+			Category:       u.Category,
+		})
+	}
+
+	return &pb.ListUniversitiesByCategoryResponse{Universities: pbUniversities}, nil
+}
+
+func (h *UniversityGRPCHandler) GetUniversityStatistics(ctx context.Context, req *pb.GetUniversityStatisticsRequest) (*pb.GetUniversityStatisticsResponse, error) {
+	total, reach, target, safety, err := h.universityUsecase.GetUniversityStatistics(ctx)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "failed to get statistics")
+	}
+	return &pb.GetUniversityStatisticsResponse{
+		TotalUniversities: total,
+		TotalReach:        reach,
+		TotalTarget:       target,
+		TotalSafety:       safety,
+	}, nil
+}

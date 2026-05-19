@@ -73,6 +73,29 @@ func (m *MockUniversityRepository) GetSavedGrants(ctx context.Context, userID st
 	return args.Get(0).([]*entity.Grant), args.Error(1)
 }
 
+func (m *MockUniversityRepository) RemoveSavedUniversity(ctx context.Context, userID, universityID string) error {
+	args := m.Called(ctx, userID, universityID)
+	return args.Error(0)
+}
+
+func (m *MockUniversityRepository) RemoveSavedGrant(ctx context.Context, userID, grantID string) error {
+	args := m.Called(ctx, userID, grantID)
+	return args.Error(0)
+}
+
+func (m *MockUniversityRepository) ListUniversitiesByCategory(ctx context.Context, category string) ([]*entity.University, error) {
+	args := m.Called(ctx, category)
+	if args.Get(0) == nil {
+		return nil, args.Error(1)
+	}
+	return args.Get(0).([]*entity.University), args.Error(1)
+}
+
+func (m *MockUniversityRepository) GetUniversityStatistics(ctx context.Context) (int32, int32, int32, int32, error) {
+	args := m.Called(ctx)
+	return args.Get(0).(int32), args.Get(1).(int32), args.Get(2).(int32), args.Get(3).(int32), args.Error(4)
+}
+
 func TestSearchUniversities_Success(t *testing.T) {
 	mockRepository := new(MockUniversityRepository)
 

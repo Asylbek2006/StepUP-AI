@@ -20,13 +20,18 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UniversityService_SearchUniversities_FullMethodName   = "/university.UniversityService/SearchUniversities"
-	UniversityService_GetUniversityDetails_FullMethodName = "/university.UniversityService/GetUniversityDetails"
-	UniversityService_SaveUniversity_FullMethodName       = "/university.UniversityService/SaveUniversity"
-	UniversityService_GetSavedUniversities_FullMethodName = "/university.UniversityService/GetSavedUniversities"
-	UniversityService_SearchGrants_FullMethodName         = "/university.UniversityService/SearchGrants"
-	UniversityService_SaveGrant_FullMethodName            = "/university.UniversityService/SaveGrant"
-	UniversityService_GetSavedGrants_FullMethodName       = "/university.UniversityService/GetSavedGrants"
+	UniversityService_SearchUniversities_FullMethodName         = "/university.UniversityService/SearchUniversities"
+	UniversityService_GetUniversityDetails_FullMethodName       = "/university.UniversityService/GetUniversityDetails"
+	UniversityService_SaveUniversity_FullMethodName             = "/university.UniversityService/SaveUniversity"
+	UniversityService_GetSavedUniversities_FullMethodName       = "/university.UniversityService/GetSavedUniversities"
+	UniversityService_SearchGrants_FullMethodName               = "/university.UniversityService/SearchGrants"
+	UniversityService_SaveGrant_FullMethodName                  = "/university.UniversityService/SaveGrant"
+	UniversityService_GetSavedGrants_FullMethodName             = "/university.UniversityService/GetSavedGrants"
+	UniversityService_RemoveSavedUniversity_FullMethodName      = "/university.UniversityService/RemoveSavedUniversity"
+	UniversityService_RemoveSavedGrant_FullMethodName           = "/university.UniversityService/RemoveSavedGrant"
+	UniversityService_GetGrantDetails_FullMethodName            = "/university.UniversityService/GetGrantDetails"
+	UniversityService_ListUniversitiesByCategory_FullMethodName = "/university.UniversityService/ListUniversitiesByCategory"
+	UniversityService_GetUniversityStatistics_FullMethodName    = "/university.UniversityService/GetUniversityStatistics"
 )
 
 // UniversityServiceClient is the client API for UniversityService service.
@@ -40,6 +45,11 @@ type UniversityServiceClient interface {
 	SearchGrants(ctx context.Context, in *SearchGrantsRequest, opts ...grpc.CallOption) (*SearchGrantsResponse, error)
 	SaveGrant(ctx context.Context, in *SaveGrantRequest, opts ...grpc.CallOption) (*SaveGrantResponse, error)
 	GetSavedGrants(ctx context.Context, in *GetSavedGrantsRequest, opts ...grpc.CallOption) (*GetSavedGrantsResponse, error)
+	RemoveSavedUniversity(ctx context.Context, in *RemoveSavedUniversityRequest, opts ...grpc.CallOption) (*RemoveSavedUniversityResponse, error)
+	RemoveSavedGrant(ctx context.Context, in *RemoveSavedGrantRequest, opts ...grpc.CallOption) (*RemoveSavedGrantResponse, error)
+	GetGrantDetails(ctx context.Context, in *GetGrantDetailsRequest, opts ...grpc.CallOption) (*GetGrantDetailsResponse, error)
+	ListUniversitiesByCategory(ctx context.Context, in *ListUniversitiesByCategoryRequest, opts ...grpc.CallOption) (*ListUniversitiesByCategoryResponse, error)
+	GetUniversityStatistics(ctx context.Context, in *GetUniversityStatisticsRequest, opts ...grpc.CallOption) (*GetUniversityStatisticsResponse, error)
 }
 
 type universityServiceClient struct {
@@ -120,6 +130,56 @@ func (c *universityServiceClient) GetSavedGrants(ctx context.Context, in *GetSav
 	return out, nil
 }
 
+func (c *universityServiceClient) RemoveSavedUniversity(ctx context.Context, in *RemoveSavedUniversityRequest, opts ...grpc.CallOption) (*RemoveSavedUniversityResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RemoveSavedUniversityResponse)
+	err := c.cc.Invoke(ctx, UniversityService_RemoveSavedUniversity_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *universityServiceClient) RemoveSavedGrant(ctx context.Context, in *RemoveSavedGrantRequest, opts ...grpc.CallOption) (*RemoveSavedGrantResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RemoveSavedGrantResponse)
+	err := c.cc.Invoke(ctx, UniversityService_RemoveSavedGrant_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *universityServiceClient) GetGrantDetails(ctx context.Context, in *GetGrantDetailsRequest, opts ...grpc.CallOption) (*GetGrantDetailsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetGrantDetailsResponse)
+	err := c.cc.Invoke(ctx, UniversityService_GetGrantDetails_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *universityServiceClient) ListUniversitiesByCategory(ctx context.Context, in *ListUniversitiesByCategoryRequest, opts ...grpc.CallOption) (*ListUniversitiesByCategoryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListUniversitiesByCategoryResponse)
+	err := c.cc.Invoke(ctx, UniversityService_ListUniversitiesByCategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *universityServiceClient) GetUniversityStatistics(ctx context.Context, in *GetUniversityStatisticsRequest, opts ...grpc.CallOption) (*GetUniversityStatisticsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetUniversityStatisticsResponse)
+	err := c.cc.Invoke(ctx, UniversityService_GetUniversityStatistics_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UniversityServiceServer is the server API for UniversityService service.
 // All implementations must embed UnimplementedUniversityServiceServer
 // for forward compatibility.
@@ -131,6 +191,11 @@ type UniversityServiceServer interface {
 	SearchGrants(context.Context, *SearchGrantsRequest) (*SearchGrantsResponse, error)
 	SaveGrant(context.Context, *SaveGrantRequest) (*SaveGrantResponse, error)
 	GetSavedGrants(context.Context, *GetSavedGrantsRequest) (*GetSavedGrantsResponse, error)
+	RemoveSavedUniversity(context.Context, *RemoveSavedUniversityRequest) (*RemoveSavedUniversityResponse, error)
+	RemoveSavedGrant(context.Context, *RemoveSavedGrantRequest) (*RemoveSavedGrantResponse, error)
+	GetGrantDetails(context.Context, *GetGrantDetailsRequest) (*GetGrantDetailsResponse, error)
+	ListUniversitiesByCategory(context.Context, *ListUniversitiesByCategoryRequest) (*ListUniversitiesByCategoryResponse, error)
+	GetUniversityStatistics(context.Context, *GetUniversityStatisticsRequest) (*GetUniversityStatisticsResponse, error)
 	mustEmbedUnimplementedUniversityServiceServer()
 }
 
@@ -161,6 +226,21 @@ func (UnimplementedUniversityServiceServer) SaveGrant(context.Context, *SaveGran
 }
 func (UnimplementedUniversityServiceServer) GetSavedGrants(context.Context, *GetSavedGrantsRequest) (*GetSavedGrantsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetSavedGrants not implemented")
+}
+func (UnimplementedUniversityServiceServer) RemoveSavedUniversity(context.Context, *RemoveSavedUniversityRequest) (*RemoveSavedUniversityResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RemoveSavedUniversity not implemented")
+}
+func (UnimplementedUniversityServiceServer) RemoveSavedGrant(context.Context, *RemoveSavedGrantRequest) (*RemoveSavedGrantResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RemoveSavedGrant not implemented")
+}
+func (UnimplementedUniversityServiceServer) GetGrantDetails(context.Context, *GetGrantDetailsRequest) (*GetGrantDetailsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetGrantDetails not implemented")
+}
+func (UnimplementedUniversityServiceServer) ListUniversitiesByCategory(context.Context, *ListUniversitiesByCategoryRequest) (*ListUniversitiesByCategoryResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListUniversitiesByCategory not implemented")
+}
+func (UnimplementedUniversityServiceServer) GetUniversityStatistics(context.Context, *GetUniversityStatisticsRequest) (*GetUniversityStatisticsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetUniversityStatistics not implemented")
 }
 func (UnimplementedUniversityServiceServer) mustEmbedUnimplementedUniversityServiceServer() {}
 func (UnimplementedUniversityServiceServer) testEmbeddedByValue()                           {}
@@ -309,6 +389,96 @@ func _UniversityService_GetSavedGrants_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UniversityService_RemoveSavedUniversity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveSavedUniversityRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UniversityServiceServer).RemoveSavedUniversity(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UniversityService_RemoveSavedUniversity_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UniversityServiceServer).RemoveSavedUniversity(ctx, req.(*RemoveSavedUniversityRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UniversityService_RemoveSavedGrant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveSavedGrantRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UniversityServiceServer).RemoveSavedGrant(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UniversityService_RemoveSavedGrant_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UniversityServiceServer).RemoveSavedGrant(ctx, req.(*RemoveSavedGrantRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UniversityService_GetGrantDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetGrantDetailsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UniversityServiceServer).GetGrantDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UniversityService_GetGrantDetails_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UniversityServiceServer).GetGrantDetails(ctx, req.(*GetGrantDetailsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UniversityService_ListUniversitiesByCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListUniversitiesByCategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UniversityServiceServer).ListUniversitiesByCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UniversityService_ListUniversitiesByCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UniversityServiceServer).ListUniversitiesByCategory(ctx, req.(*ListUniversitiesByCategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UniversityService_GetUniversityStatistics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUniversityStatisticsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UniversityServiceServer).GetUniversityStatistics(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UniversityService_GetUniversityStatistics_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UniversityServiceServer).GetUniversityStatistics(ctx, req.(*GetUniversityStatisticsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UniversityService_ServiceDesc is the grpc.ServiceDesc for UniversityService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -343,6 +513,26 @@ var UniversityService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSavedGrants",
 			Handler:    _UniversityService_GetSavedGrants_Handler,
+		},
+		{
+			MethodName: "RemoveSavedUniversity",
+			Handler:    _UniversityService_RemoveSavedUniversity_Handler,
+		},
+		{
+			MethodName: "RemoveSavedGrant",
+			Handler:    _UniversityService_RemoveSavedGrant_Handler,
+		},
+		{
+			MethodName: "GetGrantDetails",
+			Handler:    _UniversityService_GetGrantDetails_Handler,
+		},
+		{
+			MethodName: "ListUniversitiesByCategory",
+			Handler:    _UniversityService_ListUniversitiesByCategory_Handler,
+		},
+		{
+			MethodName: "GetUniversityStatistics",
+			Handler:    _UniversityService_GetUniversityStatistics_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

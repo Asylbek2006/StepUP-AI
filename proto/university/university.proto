@@ -10,6 +10,11 @@ service UniversityService {
   rpc SearchGrants(SearchGrantsRequest) returns (SearchGrantsResponse);
   rpc SaveGrant(SaveGrantRequest) returns (SaveGrantResponse);
   rpc GetSavedGrants(GetSavedGrantsRequest) returns (GetSavedGrantsResponse);
+  rpc RemoveSavedUniversity(RemoveSavedUniversityRequest) returns (RemoveSavedUniversityResponse);
+  rpc RemoveSavedGrant(RemoveSavedGrantRequest) returns (RemoveSavedGrantResponse);
+  rpc GetGrantDetails(GetGrantDetailsRequest) returns (GetGrantDetailsResponse);
+  rpc ListUniversitiesByCategory(ListUniversitiesByCategoryRequest) returns (ListUniversitiesByCategoryResponse);
+  rpc GetUniversityStatistics(GetUniversityStatisticsRequest) returns (GetUniversityStatisticsResponse);
 }
 
 message SearchUniversitiesRequest {
@@ -64,3 +69,31 @@ message SaveGrantResponse { bool success = 1; }
 
 message GetSavedGrantsRequest { string user_id = 1; }
 message GetSavedGrantsResponse { repeated Grant grants = 1; }
+
+message RemoveSavedUniversityRequest {
+  string user_id = 1;
+  string university_id = 2;
+}
+message RemoveSavedUniversityResponse { bool success = 1; }
+
+message RemoveSavedGrantRequest {
+  string user_id = 1;
+  string grant_id = 2;
+}
+message RemoveSavedGrantResponse { bool success = 1; }
+
+message GetGrantDetailsRequest { string grant_id = 1; }
+message GetGrantDetailsResponse { Grant grant = 1; }
+
+message ListUniversitiesByCategoryRequest { string category = 1; }
+message ListUniversitiesByCategoryResponse {
+  repeated University universities = 1;
+}
+
+message GetUniversityStatisticsRequest {}
+message GetUniversityStatisticsResponse {
+  int32 total_universities = 1;
+  int32 total_reach = 2;
+  int32 total_target = 3;
+  int32 total_safety = 4;
+}

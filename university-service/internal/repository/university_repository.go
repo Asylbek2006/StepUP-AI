@@ -18,6 +18,10 @@ type UniversityRepository interface {
 	GetGrantByID(ctx context.Context, grantID string) (*entity.Grant, error)
 	SaveGrant(ctx context.Context, savedGrant *entity.SavedGrant) error
 	GetSavedGrants(ctx context.Context, userID string) ([]*entity.Grant, error)
+	RemoveSavedUniversity(ctx context.Context, userID, universityID string) error
+	RemoveSavedGrant(ctx context.Context, userID, grantID string) error
+	ListUniversitiesByCategory(ctx context.Context, category string) ([]*entity.University, error)
+	GetUniversityStatistics(ctx context.Context) (int32, int32, int32, int32, error)
 }
 
 type PostgresUniversityRepository struct {
@@ -195,4 +199,68 @@ func (r *PostgresUniversityRepository) saveEntity(ctx context.Context, id, userI
 	query := fmt.Sprintf(`INSERT INTO %s (id, user_id, grant_id, saved_at) VALUES ($1, $2, $3, $4)`, tableName)
 	_, err := r.db.ExecContext(ctx, query, id, userID, entityID, savedAt)
 	return err
+}
+
+func (r *PostgresUniversityRepository) RemoveSavedUniversity(ctx context.Context, userID, universityID string) error {
+	query := `DELETE FROM saved_universities WHERE user_id = $1 AND university_id = $2`
+	_, err := r.db.ExecContext(ctx, query, userID, universityID)
+	return err
+}
+
+func (r *PostgresUniversityRepository) RemoveSavedGrant(ctx context.Context, userID, grantID string) error {
+	query := `DELETE FROM saved_grants WHERE user_id = $1 AND grant_id = $2`
+	_, err := r.db.ExecContext(ctx, query, userID, grantID)
+	return err
+}
+
+func (r *PostgresUniversityRepository) ListUniversitiesByCategory(ctx context.Context, category string) ([]*entity.University, error) {
+	query := `
+    SELECT id, name, country, acceptance_rate, type, category, created_at
+    FROM universities WHERE category = $1
+  `
+	rows, err := r.db.QueryContext(ctx, query, category)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var universities []*entity.University
+	for rows.Next() {
+		university := &entity.University{}
+		if err := rows.Scan(
+			&university.ID, &university.Name, &university.Country,
+			&university.AcceptanceRate, &university.Type, &university.Category,
+			&university.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		universities = append(universities, university)
+	}
+	return universities, nil
+}
+
+func (r *PostgresUniversityRepository) GetUniversityStatistics(ctx context.Context) (int32, int32, int32, int32, error) {
+	var total, reach, target, safety int32
+
+	err := r.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM universities`).Scan(&total)
+	if err != nil {
+		return 0, 0, 0, 0, err
+	}
+
+	err = r.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM universities WHERE category = 'reach'`).Scan(&reach)
+	if err != nil {
+		return 0, 0, 0, 0, err
+	}
+
+	err = r.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM universities WHERE category = 'target'`).Scan(&target)
+	if err != nil {
+		return 0, 0, 0, 0, err
+	}
+
+	err = r.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM universities WHERE category = 'safety'`).Scan(&safety)
+	if err != nil {
+		return 0, 0, 0, 0, err
+	}
+
+	return total, reach, target, safety, nil
 }
