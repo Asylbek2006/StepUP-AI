@@ -24,7 +24,7 @@ import (
 
 func main() {
 	databaseURL := os.Getenv("DATABASE_URL")
-	geminiAPIKey := os.Getenv("AIzaSyDT4W-3zZJgX66sGn-Ll-YNW6IJCR2ZOSc")
+	geminiAPIKey := os.Getenv("GEMINI_API_KEY")
 	grpcPort := os.Getenv("GRPC_PORT")
 
 	if grpcPort == "" {
