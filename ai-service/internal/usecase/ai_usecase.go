@@ -25,22 +25,27 @@ type AIUsecase interface {
 
 type aiUsecase struct {
 	aiRepository repository.AIRepository
-	geminiClient *genai.Client
+	geminiAPIKey string
 }
 
 func NewAIUsecase(aiRepository repository.AIRepository, geminiAPIKey string) AIUsecase {
-	client, err := genai.NewClient(context.Background(), option.WithAPIKey(geminiAPIKey))
-	if err != nil {
-		panic(fmt.Sprintf("failed to create gemini client: %v", err))
-	}
 	return &aiUsecase{
 		aiRepository: aiRepository,
-		geminiClient: client,
+		geminiAPIKey: geminiAPIKey,
 	}
 }
 
 func (u *aiUsecase) generateContent(ctx context.Context, prompt string) (string, error) {
-	model := u.geminiClient.GenerativeModel("gemini-1.5-flash")
+	if u.geminiAPIKey == "" {
+		return "", fmt.Errorf("GEMINI_API_KEY is not set")
+	}
+	client, err := genai.NewClient(ctx, option.WithAPIKey(u.geminiAPIKey))
+	if err != nil {
+		return "", fmt.Errorf("failed to create gemini client: %w", err)
+	}
+	defer client.Close()
+
+	model := client.GenerativeModel("gemini-1.5-flash")
 	resp, err := model.GenerateContent(ctx, genai.Text(prompt))
 	if err != nil {
 		return "", err
