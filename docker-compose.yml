@@ -93,7 +93,7 @@ services:
     environment:
       DATABASE_URL: postgres://postgres:postgres@postgres-ai:5432/ai_db?sslmode=disable
       NATS_URL: nats://nats:4222
-      GEMINI_API_KEY: AIzaSyDT4W-3zZJgX66sGn-Ll-YNW6IJCR2ZOSc
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
     depends_on:
       - postgres-ai
       - nats
