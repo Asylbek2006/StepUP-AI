@@ -49,7 +49,7 @@ func NewAIUsecase(aiRepository repository.AIRepository, geminiAPIKey string) AIU
 
 // callGemini отправляет prompt в Gemini и возвращает текстовый ответ
 func (u *aiUsecase) callGemini(ctx context.Context, prompt string) (string, error) {
-	model := u.geminiClient.GenerativeModel("gemini-1.5-flash")
+	model := u.geminiClient.GenerativeModel("gemini-2.5-flash")
 	resp, err := model.GenerateContent(ctx, genai.Text(prompt))
 	if err != nil {
 		return "", err
